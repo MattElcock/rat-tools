@@ -5,6 +5,6 @@ describe("page", () => {
   it("should render hello world", () => {
     const screen = render(<Home />);
 
-    expect(screen.getByText("Hello World")).toBeInTheDocument();
+    expect(screen.getByText("Homepage")).toBeInTheDocument();
   });
 });
