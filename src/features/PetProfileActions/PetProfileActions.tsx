@@ -1,7 +1,8 @@
-import { Avatar, Box, Text, Link } from "@chakra-ui/react";
+import { Avatar, Box, Text } from "@chakra-ui/react";
 import { Actions } from "./components/Actions";
 
 interface PetProfileActionsProps {
+  userId: string;
   petId: string;
 }
 
@@ -20,7 +21,7 @@ const PetProfileActions = ({ petId }: PetProfileActionsProps) => {
     >
       <Avatar size="xl" />
       <Box>
-        <Text fontSize="3xl" as="h3">
+        <Text fontSize="3xl" as="h2">
           {data.name}
         </Text>
         <Actions />
