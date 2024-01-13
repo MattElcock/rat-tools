@@ -1,13 +1,14 @@
 import { Header } from "@/components/Header";
-import { Box, Container } from "@chakra-ui/react";
+import { Box, Container, Stack } from "@chakra-ui/react";
 import { Providers } from "./providers";
 import Image from "next/image";
+import { Breadcrumbs } from "@/features/Breadcrumbs";
 
-export default function RootLayout({
-  children,
-}: {
+interface RootLayoutProps {
   children: React.ReactNode;
-}) {
+}
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" style={{ minHeight: "100vh" }}>
       <body style={{ height: "100vh" }}>
@@ -26,8 +27,11 @@ export default function RootLayout({
               </Container>
             </header>
             <main>
-              <Container py={5} px={8}>
-                {children}
+              <Container py={3} px={8}>
+                <Stack spacing={3}>
+                  <Breadcrumbs />
+                  {children}
+                </Stack>
               </Container>
             </main>
             <footer>
