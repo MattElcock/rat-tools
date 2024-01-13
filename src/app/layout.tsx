@@ -1,6 +1,7 @@
 import { Header } from "@/components/Header";
-import { Container } from "@chakra-ui/react";
+import { Box, Container } from "@chakra-ui/react";
 import { Providers } from "./providers";
+import Image from "next/image";
 
 export default function RootLayout({
   children,
@@ -20,7 +21,7 @@ export default function RootLayout({
             }}
           >
             <header>
-              <Container bg="black" color="white" py={3} px={8}>
+              <Container bg="#09203F" color="white" py={3} px={8}>
                 <Header />
               </Container>
             </header>
@@ -30,7 +31,17 @@ export default function RootLayout({
               </Container>
             </main>
             <footer>
-              <Container py={3} px={8}>
+              <Container
+                py={3}
+                px={8}
+                bg="#09203F"
+                color="white"
+                position="relative"
+              >
+                <Box position="absolute" top={-65} zIndex={-1}>
+                  <Image src="/rats.png" alt={""} width={552} height={99} />
+                </Box>
+
                 <p>Footer</p>
               </Container>
             </footer>
