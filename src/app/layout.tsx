@@ -20,15 +20,17 @@ export default function RootLayout({
             }}
           >
             <header>
-              <Container bg="black" color="white" py={2}>
+              <Container bg="black" color="white" py={3} px={8}>
                 <Header />
               </Container>
             </header>
             <main>
-              <Container py={2}>{children}</Container>
+              <Container py={5} px={8}>
+                {children}
+              </Container>
             </main>
             <footer>
-              <Container py={2}>
+              <Container py={3} px={8}>
                 <p>Footer</p>
               </Container>
             </footer>
