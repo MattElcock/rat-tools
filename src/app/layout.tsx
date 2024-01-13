@@ -3,6 +3,7 @@ import { Box, Container, Stack } from "@chakra-ui/react";
 import { Providers } from "./providers";
 import Image from "next/image";
 import { Breadcrumbs } from "@/features/Breadcrumbs";
+import { Footer } from "@/components/Footer";
 
 interface RootLayoutProps {
   children: React.ReactNode;
@@ -45,8 +46,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
                 <Box position="absolute" top={-65} zIndex={-1}>
                   <Image src="/rats.png" alt={""} width={552} height={99} />
                 </Box>
-
-                <p>Footer</p>
+                <Footer />
               </Container>
             </footer>
           </div>
