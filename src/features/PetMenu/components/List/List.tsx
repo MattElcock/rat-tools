@@ -1,6 +1,6 @@
 "use client";
 
-import { AvatarLink } from "@/components/AvatarLink/AvatarLink";
+import { AvatarLink } from "@/components/AvatarLink";
 import { Pet } from "@/types";
 import { Box } from "@chakra-ui/react";
 import { usePathname } from "next/navigation";
@@ -14,7 +14,7 @@ const List = ({ pets }: ListProps) => {
   const path = usePathname();
 
   return (
-    <Box display="flex">
+    <Box display="flex" flexWrap="wrap" justifyContent="space-between">
       {pets.map((pet) => (
         <AvatarLink key={pet.id} href={`${path}/${pet.id}`} text={pet.name} />
       ))}
