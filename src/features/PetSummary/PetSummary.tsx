@@ -1,3 +1,6 @@
+"use client";
+
+import { useGetPetById } from "@/api/pets";
 import { Stat } from "@/components/Stat";
 import { PageSection } from "@/layouts/PageSection";
 import { Box } from "@chakra-ui/react";
@@ -9,17 +12,24 @@ import {
 } from "react-icons/io5";
 
 interface PetSummaryProps {
-  userId: string;
   petId: string;
 }
 
-const PetSummary = ({ userId, petId }: PetSummaryProps) => {
-  const data = {
-    sex: "Male",
-    dateOfBirth: "11th Aug, 2020",
-    latestWeight: { taken: "11th Aug, 2020", value: 567 },
-    fur: ["White", "Cream"],
-  };
+const PetSummary = ({ petId }: PetSummaryProps) => {
+  const { isLoading, error, data } = useGetPetById(petId);
+
+  if (isLoading) {
+    return <p>Loading</p>;
+  }
+
+  if (error) {
+    return <p>Error</p>;
+  }
+
+  const longDateFormatter = new Intl.DateTimeFormat("en-GB", {
+    dateStyle: "medium",
+    timeStyle: undefined,
+  });
 
   return (
     <PageSection title="At a Glance">
@@ -28,12 +38,12 @@ const PetSummary = ({ userId, petId }: PetSummaryProps) => {
         <Stat
           icon={<IoCalendarOutline />}
           title="Date of Birth"
-          value={data.dateOfBirth}
+          value={longDateFormatter.format(new Date(data.dateOfBirth))}
         />
         <Stat
           icon={<IoScaleOutline />}
           title="Latest Weight"
-          subtitle={data.latestWeight.taken}
+          subtitle={longDateFormatter.format(new Date(data.latestWeight.taken))}
           value={`${data.latestWeight.value} grams`}
         />
         <Stat

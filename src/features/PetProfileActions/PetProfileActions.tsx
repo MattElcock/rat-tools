@@ -1,16 +1,25 @@
-import { Avatar, Box, Text } from "@chakra-ui/react";
-import { Actions } from "./components/Actions";
+"use client";
+
+import { Avatar, Box, Link, Text } from "@chakra-ui/react";
+import NextLink from "next/link";
+import { useGetPetById } from "@/api/pets";
+import { usePathname } from "next/navigation";
 
 interface PetProfileActionsProps {
-  userId: string;
   petId: string;
 }
 
 const PetProfileActions = ({ petId }: PetProfileActionsProps) => {
-  const data = {
-    id: petId,
-    name: "Biscoff",
-  };
+  const path = usePathname();
+  const { isLoading, error, data } = useGetPetById(petId);
+
+  if (isLoading) {
+    return <p>Loading</p>;
+  }
+
+  if (error) {
+    return <p>Error</p>;
+  }
 
   return (
     <Box
@@ -24,7 +33,14 @@ const PetProfileActions = ({ petId }: PetProfileActionsProps) => {
         <Text fontSize="3xl" as="h2">
           {data.name}
         </Text>
-        <Actions />
+        <Box display="flex" gap={3}>
+          <Link as={NextLink} href={`${path}/edit`} color="teal.500">
+            Edit Profile
+          </Link>
+          <Link as={NextLink} href={`${path}/share`} color="teal.500">
+            Share Profile
+          </Link>
+        </Box>
       </Box>
     </Box>
   );
