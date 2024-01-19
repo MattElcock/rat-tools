@@ -1,13 +1,12 @@
 import { QueryClient, useQuery } from "@tanstack/react-query";
-import axios from "axios";
 
 const queryKey = ["pets"];
 
 const getPets = async () => {
   try {
-    const response = await axios.get("/api/pets");
+    const response = await fetch("http://localhost:3000/api/pets");
 
-    return response.data;
+    return response.json();
   } catch (e) {
     console.log(e);
   }
