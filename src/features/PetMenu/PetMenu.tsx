@@ -21,7 +21,7 @@ const PetMenu = () => {
 
   return (
     <PageSection title="Your Mischief">
-      <Box display="flex" flexWrap="wrap" justifyContent="space-between">
+      <Box display="flex" flexWrap="wrap" gap={5}>
         {data.map((pet: any) => (
           <AvatarLink key={pet.id} href={`${path}/${pet.id}`} text={pet.name} />
         ))}

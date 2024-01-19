@@ -27,14 +27,14 @@ export default function RootLayout({ children }: RootLayoutProps) {
                 <Header />
               </Container>
             </header>
-            <main>
+            <Box as="main" mb={65} pb={5}>
               <Container py={3} px={8}>
                 <Stack spacing={3}>
                   <Breadcrumbs />
                   {children}
                 </Stack>
               </Container>
-            </main>
+            </Box>
             <footer>
               <Container
                 py={3}
