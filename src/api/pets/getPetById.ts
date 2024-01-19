@@ -5,7 +5,7 @@ const queryKey = ["pets", 1];
 
 const getPetById = async (id: string) => {
   try {
-    const response = await axios.get(`/api/pets/${id}`);
+    const response = await axios.get(`http://localhost:3000/api/pets/${id}`);
 
     return response.data;
   } catch (e) {

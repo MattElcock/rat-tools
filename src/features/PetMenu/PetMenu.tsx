@@ -22,9 +22,14 @@ const PetMenu = () => {
   return (
     <PageSection title="Your Mischief">
       <Box display="flex" flexWrap="wrap" gap={5}>
-        {data.map((pet: any) => (
-          <AvatarLink key={pet.id} href={`${path}/${pet.id}`} text={pet.name} />
-        ))}
+        {data.length > 0 &&
+          data.map((pet: any) => (
+            <AvatarLink
+              key={pet.id}
+              href={`${path}/${pet.id}`}
+              text={pet.name}
+            />
+          ))}
         <AvatarLink
           href={`${path}/new-pet`}
           text="Add a Rat"
