@@ -1,11 +1,11 @@
 import { QueryClient, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-const queryKey = ["pets", 1];
-
 const getPetById = async (id: string) => {
   try {
-    const response = await axios.get(`http://localhost:3000/api/pets/${id}`);
+    const response = await axios.get(
+      `http://localhost:3000/api/pets/${id}?populate=*`
+    );
 
     return response.data;
   } catch (e) {
@@ -17,7 +17,7 @@ const getPetByIdPrefetch = (id: string) => {
   const queryClient = new QueryClient();
 
   queryClient.prefetchQuery({
-    queryKey: queryKey,
+    queryKey: ["pets", id],
     queryFn: () => getPetById(id),
   });
 
@@ -26,7 +26,7 @@ const getPetByIdPrefetch = (id: string) => {
 
 const useGetPetById = (id: string) => {
   return useQuery({
-    queryKey: queryKey,
+    queryKey: ["pets", id],
     queryFn: () => getPetById(id),
   });
 };

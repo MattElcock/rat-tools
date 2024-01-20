@@ -11,7 +11,7 @@ interface PetProfileActionsProps {
 
 const PetProfileActions = ({ petId }: PetProfileActionsProps) => {
   const path = usePathname();
-  const { isLoading, error, data } = useGetPetById(petId);
+  const { isLoading, error, data: response } = useGetPetById(petId);
 
   if (isLoading) {
     return <p>Loading</p>;
@@ -31,7 +31,7 @@ const PetProfileActions = ({ petId }: PetProfileActionsProps) => {
       <Avatar size="xl" />
       <Box>
         <Text fontSize="3xl" as="h2">
-          {data.name}
+          {response.data.attributes.name}
         </Text>
         <Box display="flex" gap={3}>
           <Link as={NextLink} href={`${path}/edit`} color="teal.500">

@@ -4,7 +4,9 @@ const queryKey = ["pets"];
 
 const getPets = async () => {
   try {
-    const response = await fetch("http://localhost:3000/api/pets");
+    const response = await fetch(
+      "http://localhost:3000/api/pets?fields[0]=name"
+    );
 
     return response.json();
   } catch (e) {
