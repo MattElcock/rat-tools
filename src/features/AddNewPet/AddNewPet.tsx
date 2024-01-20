@@ -1,75 +1,139 @@
+"use client";
+
+import { useCreatePet } from "@/api/pets";
 import { CheckboxField } from "@/components/CheckboxField";
+import { Form } from "@/components/Form";
 import { RadioField } from "@/components/RadioField";
 import { TextField } from "@/components/TextField";
+import { requiredErrorMessage } from "@/constants/copy";
 import { PageSection } from "@/layouts/PageSection";
 import { Button, ButtonGroup, Stack, Text } from "@chakra-ui/react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+interface FieldValues {
+  name: string;
+  dateOfBirth: string;
+  sex: string;
+  reading: number;
+  dateTaken: string;
+  fur: string[];
+}
+
+const schema = yup.object({
+  name: yup.string().required(requiredErrorMessage),
+  dateOfBirth: yup.string().required(requiredErrorMessage),
+  sex: yup.string().required(requiredErrorMessage),
+  reading: yup
+    .number()
+    .transform((value) => (Number.isNaN(value) ? null : value))
+    .required(requiredErrorMessage),
+  dateTaken: yup.string().required(requiredErrorMessage),
+  fur: yup
+    .array()
+    .of(yup.string().required(requiredErrorMessage))
+    .required(requiredErrorMessage),
+});
 
 const AddNewPet = () => {
+  const createPetMutation = useCreatePet();
+
+  const handleSubmit = (data: FieldValues) => {
+    createPetMutation.mutate({
+      name: data.name,
+      dateOfBirth: data.dateOfBirth,
+      fur: data.fur,
+      sex: data.sex,
+      weight: {
+        taken: data.dateTaken,
+        reading: data.reading,
+      },
+    });
+  };
+
   return (
     <PageSection title="Add a New Pet">
-      <form>
-        <Stack spacing={7}>
-          <Stack spacing={5}>
-            <TextField label="Name" />
-            <TextField
-              label="Date of Birth"
-              helperText="If you aren't sure, enter a rough estimate"
-              inputProps={{ type: "date" }}
-            />
-            <RadioField
-              label="Sex"
-              options={[
-                { label: "Male", value: "Male" },
-                { label: "Female", value: "Female" },
-              ]}
-            />
-            <Stack>
-              <Text fontWeight={600} id="latest-weight">
-                Latest Weight
-              </Text>
-              <Text fontSize="small">
-                It is important to regularly weigh your pet as it helps you
-                recognize sickness sooner.
-              </Text>
-              <TextField
-                label="Reading"
-                labelProps={{ fontWeight: 400 }}
-                inputProps={{
-                  "aria-describedby": "latest-weight",
-                }}
-                rightAddon="grams"
-              />
-              <TextField
-                label="Date Taken"
-                labelProps={{ fontWeight: 400 }}
-                inputProps={{
-                  type: "date",
-                  "aria-describedby": "latest-weight",
-                }}
-              />
+      <Form<FieldValues> onSubmit={handleSubmit} resolver={yupResolver(schema)}>
+        {({ formState }) => {
+          return (
+            <Stack spacing={7}>
+              <Stack spacing={5}>
+                <TextField
+                  name="name"
+                  label="Name"
+                  error={formState.errors.name}
+                />
+                <TextField
+                  name="dateOfBirth"
+                  label="Date of Birth"
+                  helperText="If you aren't sure, enter a rough estimate"
+                  inputProps={{ type: "date" }}
+                  error={formState.errors.dateOfBirth}
+                />
+                <RadioField
+                  name="sex"
+                  label="Sex"
+                  options={[
+                    { label: "Male", value: "Male" },
+                    { label: "Female", value: "Female" },
+                  ]}
+                  error={formState.errors.sex}
+                />
+                <Stack>
+                  <Text fontWeight={600} id="latestWeight">
+                    Latest Weight
+                  </Text>
+                  <Text fontSize="small">
+                    It is important to regularly weigh your pet as it helps you
+                    recognize sickness sooner.
+                  </Text>
+                  <TextField
+                    name="reading"
+                    label="Reading"
+                    labelProps={{ fontWeight: 400 }}
+                    inputProps={{
+                      "aria-describedby": "latestWeight",
+                    }}
+                    rightAddon="grams"
+                    error={formState.errors.reading}
+                  />
+                  <TextField
+                    name="dateTaken"
+                    label="Date Taken"
+                    labelProps={{ fontWeight: 400 }}
+                    inputProps={{
+                      type: "date",
+                      "aria-describedby": "latestWeight",
+                    }}
+                    error={formState.errors.dateTaken}
+                  />
+                </Stack>
+                <CheckboxField
+                  name="fur"
+                  label="Fur"
+                  options={[
+                    { label: "Black", value: "Black" },
+                    { label: "White", value: "White" },
+                    { label: "Gray", value: "Gray" },
+                    { label: "Cream", value: "Cream" },
+                    { label: "Brown", value: "Brown" },
+                    { label: "Hairless", value: "Hairless" },
+                  ]}
+                  error={formState.errors.fur}
+                />
+              </Stack>
+              <ButtonGroup flexDirection="column" gap={3}>
+                <Button colorScheme="teal" type="submit">
+                  Submit Form
+                </Button>
+                <Button colorScheme="teal" variant="link">
+                  Cancel
+                </Button>
+              </ButtonGroup>
             </Stack>
-            <CheckboxField
-              label="Fur"
-              options={[
-                { label: "Black", value: "Black" },
-                { label: "White", value: "White" },
-                { label: "Gray", value: "Gray" },
-                { label: "Cream", value: "Cream" },
-                { label: "Brown", value: "Brown" },
-              ]}
-              mutuallyExclusiveOptions={[
-                { label: "Hairless", value: "Hairless" },
-              ]}
-            />
-          </Stack>
-          <ButtonGroup flexDirection="column" gap={3}>
-            <Button colorScheme="teal">Submit Form</Button>
-            <Button colorScheme="teal" variant="link">
-              Cancel
-            </Button>
-          </ButtonGroup>
-        </Stack>
-      </form>
+          );
+        }}
+      </Form>
     </PageSection>
   );
 };

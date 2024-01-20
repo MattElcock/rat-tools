@@ -1,10 +1,12 @@
 import {
   FormControl,
+  FormErrorMessage,
   FormLabel,
+  Radio,
   RadioGroup,
   Stack,
-  Radio,
 } from "@chakra-ui/react";
+import { FieldError, useFormContext } from "react-hook-form";
 
 type RadioOption = {
   label: string;
@@ -12,23 +14,28 @@ type RadioOption = {
 };
 
 interface RadioFieldProps {
+  name: string;
   label: string;
   options: RadioOption[];
+  error?: FieldError;
 }
 
-const RadioField = ({ label, options }: RadioFieldProps) => {
+const RadioField = ({ name, label, options, error }: RadioFieldProps) => {
+  const { register } = useFormContext();
+
   return (
-    <FormControl>
+    <FormControl isInvalid={Boolean(error)}>
       <FormLabel>{label}</FormLabel>
       <RadioGroup>
         <Stack direction="row" gap={5}>
           {options.map((option) => (
-            <Radio key={option.value} value={option.value}>
+            <Radio key={option.value} value={option.value} {...register(name)}>
               {option.label}
             </Radio>
           ))}
         </Stack>
       </RadioGroup>
+      {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
     </FormControl>
   );
 };
