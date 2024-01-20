@@ -57,6 +57,10 @@ const AddNewPet = () => {
     });
   };
 
+  const handleCancel = () => {
+    router.push("/pets");
+  };
+
   return (
     <PageSection title="Add a New Pet">
       <Form<FieldValues> onSubmit={handleSubmit} resolver={yupResolver(schema)}>
@@ -132,7 +136,11 @@ const AddNewPet = () => {
                 <Button colorScheme="teal" type="submit">
                   Submit Form
                 </Button>
-                <Button colorScheme="teal" variant="link">
+                <Button
+                  colorScheme="teal"
+                  variant="link"
+                  onClick={handleCancel}
+                >
                   Cancel
                 </Button>
               </ButtonGroup>
