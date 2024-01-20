@@ -9,7 +9,7 @@ import { IoAdd } from "react-icons/io5";
 
 const PetMenu = () => {
   const path = usePathname();
-  const { data, isLoading, error } = useGetPets();
+  const { data: response, isLoading, error } = useGetPets();
 
   if (isLoading) {
     return <p>Loading</p>;
@@ -22,12 +22,12 @@ const PetMenu = () => {
   return (
     <PageSection title="Your Mischief">
       <Box display="flex" flexWrap="wrap" gap={5}>
-        {data.length > 0 &&
-          data.map((pet: any) => (
+        {response.data.length > 0 &&
+          response.data.map((pet: any) => (
             <AvatarLink
               key={pet.id}
               href={`${path}/${pet.id}`}
-              text={pet.name}
+              text={pet.attributes.name}
             />
           ))}
         <AvatarLink

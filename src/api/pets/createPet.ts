@@ -57,8 +57,15 @@ const createPet = async (data: CreatePetData) => {
   }
 };
 
-const useCreatePet = () => {
-  return useMutation({ mutationFn: createPet });
+interface UseCreatePet {
+  onSuccess?: (data: void, variables: CreatePetData, context: unknown) => void;
+}
+
+const useCreatePet = (options?: UseCreatePet) => {
+  return useMutation({
+    mutationFn: createPet,
+    onSuccess: options?.onSuccess,
+  });
 };
 
 export { useCreatePet };

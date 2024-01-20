@@ -9,6 +9,7 @@ import { requiredErrorMessage } from "@/constants/copy";
 import { PageSection } from "@/layouts/PageSection";
 import { Button, ButtonGroup, Stack, Text } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useRouter } from "next/navigation";
 import * as yup from "yup";
 
 interface FieldValues {
@@ -36,7 +37,12 @@ const schema = yup.object({
 });
 
 const AddNewPet = () => {
-  const createPetMutation = useCreatePet();
+  const router = useRouter();
+  const createPetMutation = useCreatePet({
+    onSuccess: () => {
+      router.push("/pets");
+    },
+  });
 
   const handleSubmit = (data: FieldValues) => {
     createPetMutation.mutate({

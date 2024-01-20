@@ -16,7 +16,7 @@ interface PetSummaryProps {
 }
 
 const PetSummary = ({ petId }: PetSummaryProps) => {
-  const { isLoading, error, data } = useGetPetById(petId);
+  const { isLoading, error, data: response } = useGetPetById(petId);
 
   if (isLoading) {
     return <p>Loading</p>;
@@ -31,6 +31,9 @@ const PetSummary = ({ petId }: PetSummaryProps) => {
     timeStyle: undefined,
   });
 
+  const data = response.data.attributes;
+  const latestWeight = data.weights.data[0].attributes;
+
   return (
     <PageSection title="At a Glance">
       <Box display="grid" gridTemplateColumns="1fr 1fr" gap={3}>
@@ -43,8 +46,8 @@ const PetSummary = ({ petId }: PetSummaryProps) => {
         <Stat
           icon={<IoScaleOutline />}
           title="Latest Weight"
-          subtitle={longDateFormatter.format(new Date(data.latestWeight.taken))}
-          value={`${data.latestWeight.value} grams`}
+          subtitle={longDateFormatter.format(new Date(latestWeight.taken))}
+          value={`${latestWeight.reading} grams`}
         />
         <Stat
           icon={<IoColorPaletteOutline />}
