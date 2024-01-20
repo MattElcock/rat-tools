@@ -1,24 +1,17 @@
 import { QueryClient, useQuery } from "@tanstack/react-query";
-
-const queryKey = ["pets"];
+import { all } from "./keys";
 
 const getPets = async () => {
-  try {
-    const response = await fetch(
-      "http://localhost:3000/api/pets?fields[0]=name"
-    );
+  const response = await fetch("http://localhost:3000/api/pets?fields[0]=name");
 
-    return response.json();
-  } catch (e) {
-    console.log(e);
-  }
+  return response.json();
 };
 
 const getPetsPrefetch = () => {
   const queryClient = new QueryClient();
 
   queryClient.prefetchQuery({
-    queryKey,
+    queryKey: all,
     queryFn: getPets,
   });
 
@@ -27,7 +20,7 @@ const getPetsPrefetch = () => {
 
 const useGetPets = () => {
   return useQuery({
-    queryKey,
+    queryKey: all,
     queryFn: getPets,
   });
 };

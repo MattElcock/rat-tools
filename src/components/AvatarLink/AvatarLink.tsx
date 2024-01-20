@@ -1,4 +1,11 @@
-import { Avatar, Box, Text } from "@chakra-ui/react";
+import {
+  Avatar,
+  Box,
+  SkeletonCircle,
+  SkeletonText,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
 import Link from "next/link";
 import { ReactElement } from "react";
 
@@ -19,4 +26,13 @@ const AvatarLink = ({ href, text, icon }: AvatarLinkProps) => {
   );
 };
 
-export { AvatarLink };
+const SkeletonAvatarLink = () => {
+  return (
+    <Stack spacing={2.5}>
+      <SkeletonCircle size="24" />
+      <SkeletonText noOfLines={1} skeletonHeight="5" />
+    </Stack>
+  );
+};
+
+export { AvatarLink, SkeletonAvatarLink };
