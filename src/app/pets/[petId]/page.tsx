@@ -1,15 +1,9 @@
-import { PetProfileActions } from "@/features/PetProfileActions";
-import { PetSummary } from "@/features/PetSummary";
+import { PetProfile } from "@/features/PetProfile";
 import { PageProps } from "@/types";
 import { Stack } from "@chakra-ui/react";
 
-export default function PetProfile(props: PageProps) {
+export default function PetProfilePage(props: PageProps) {
   const { petId } = props.params;
 
-  return (
-    <Stack spacing={5}>
-      <PetProfileActions petId={petId} />
-      <PetSummary petId={petId} />
-    </Stack>
-  );
+  return <PetProfile petId={petId} />;
 }

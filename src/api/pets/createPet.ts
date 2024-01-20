@@ -1,4 +1,5 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { all } from "./keys";
 
 interface CreatePetData {
   name: string;
@@ -12,49 +13,45 @@ interface CreatePetData {
 }
 
 const createPet = async (data: CreatePetData) => {
-  try {
-    const petResponse = await fetch("http://localhost:3000/api/pets", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+  const petResponse = await fetch("http://localhost:3000/api/pets", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      data: {
+        name: data.name,
+        sex: data.sex,
+        dateOfBirth: data.dateOfBirth,
+        fur: data.fur,
       },
-      body: JSON.stringify({
-        data: {
-          name: data.name,
-          sex: data.sex,
-          dateOfBirth: data.dateOfBirth,
-          fur: data.fur,
-        },
-      }),
-    });
+    }),
+  });
 
-    const petJson = await petResponse.json();
+  const petJson = await petResponse.json();
 
-    await fetch("http://localhost:3000/api/weights", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        data: {
-          taken: data.weight.taken,
-          reading: data.weight.reading,
-          pet: {
-            connect: [
-              {
-                id: petJson.data.id,
-                position: {
-                  end: true,
-                },
+  await fetch("http://localhost:3000/api/weights", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      data: {
+        taken: data.weight.taken,
+        reading: data.weight.reading,
+        pet: {
+          connect: [
+            {
+              id: petJson.data.id,
+              position: {
+                end: true,
               },
-            ],
-          },
+            },
+          ],
         },
-      }),
-    });
-  } catch (e) {
-    throw e;
-  }
+      },
+    }),
+  });
 };
 
 interface UseCreatePet {
@@ -62,9 +59,15 @@ interface UseCreatePet {
 }
 
 const useCreatePet = (options?: UseCreatePet) => {
+  const client = useQueryClient();
+
   return useMutation({
     mutationFn: createPet,
-    onSuccess: options?.onSuccess,
+    onSuccess: (data, variables, context) => {
+      client.invalidateQueries({ queryKey: all }).then(() => {
+        options?.onSuccess?.(data, variables, context);
+      });
+    },
   });
 };
 
