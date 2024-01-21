@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import {
+  DefaultValues,
   FieldValues,
   FormProvider,
   Resolver,
@@ -12,14 +13,16 @@ interface FormProps<TFieldValues extends FieldValues> {
   children: (arg0: UseFormReturn<TFieldValues>) => ReactNode;
   onSubmit: SubmitHandler<TFieldValues>;
   resolver: Resolver<TFieldValues>;
+  defaultValues?: DefaultValues<TFieldValues>;
 }
 
 const Form = <TFieldValues extends FieldValues>({
   children,
   onSubmit,
   resolver,
+  defaultValues,
 }: FormProps<TFieldValues>) => {
-  const methods = useForm<TFieldValues>({ resolver: resolver });
+  const methods = useForm<TFieldValues>({ resolver: resolver, defaultValues });
 
   return (
     <FormProvider {...methods}>

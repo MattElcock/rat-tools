@@ -11,6 +11,7 @@ import {
   ControllerRenderProps,
   FieldError,
   Merge,
+  useFormContext,
 } from "react-hook-form";
 
 type CheckboxOption = {
@@ -26,6 +27,8 @@ interface CheckboxFieldProps {
 }
 
 const CheckboxField = ({ name, label, options, error }: CheckboxFieldProps) => {
+  const { control, getValues } = useFormContext();
+
   const handleCheckboxChange = (
     option: string,
     checked: boolean,
@@ -55,10 +58,11 @@ const CheckboxField = ({ name, label, options, error }: CheckboxFieldProps) => {
             <Controller
               key={option.value}
               name={name}
+              control={control}
               render={({ field }) => (
                 <Checkbox
                   value={option.value}
-                  checked={field.value}
+                  defaultChecked={field.value.includes(option.value)}
                   onChange={(e) =>
                     handleCheckboxChange(option.value, e.target.checked, field)
                   }

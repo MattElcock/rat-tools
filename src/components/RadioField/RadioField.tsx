@@ -21,12 +21,12 @@ interface RadioFieldProps {
 }
 
 const RadioField = ({ name, label, options, error }: RadioFieldProps) => {
-  const { register } = useFormContext();
+  const { register, getValues } = useFormContext();
 
   return (
     <FormControl isInvalid={Boolean(error)}>
       <FormLabel>{label}</FormLabel>
-      <RadioGroup>
+      <RadioGroup defaultValue={getValues(name)}>
         <Stack direction="row" gap={5}>
           {options.map((option) => (
             <Radio key={option.value} value={option.value} {...register(name)}>
