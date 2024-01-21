@@ -62,7 +62,7 @@ const CheckboxField = ({ name, label, options, error }: CheckboxFieldProps) => {
               render={({ field }) => (
                 <Checkbox
                   value={option.value}
-                  defaultChecked={field.value.includes(option.value)}
+                  defaultChecked={field.value?.includes(option.value)}
                   onChange={(e) =>
                     handleCheckboxChange(option.value, e.target.checked, field)
                   }
