@@ -27,7 +27,7 @@ interface CheckboxFieldProps {
 }
 
 const CheckboxField = ({ name, label, options, error }: CheckboxFieldProps) => {
-  const { control, getValues } = useFormContext();
+  const { control } = useFormContext();
 
   const handleCheckboxChange = (
     option: string,
@@ -50,8 +50,12 @@ const CheckboxField = ({ name, label, options, error }: CheckboxFieldProps) => {
   };
 
   return (
-    <FormControl isInvalid={Boolean(error)}>
-      <FormLabel>{label}</FormLabel>
+    <FormControl
+      isInvalid={Boolean(error)}
+      aria-invalid={Boolean(error)}
+      as="fieldset"
+    >
+      <FormLabel as="legend">{label}</FormLabel>
       <Stack>
         <Box display="grid" gridTemplateColumns="repeat(3, 1fr)" rowGap={2}>
           {options.map((option) => (
