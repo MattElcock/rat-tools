@@ -61,9 +61,6 @@ const PetProfile = ({ petId }: PetProfileProps) => {
             <Link as={NextLink} href={`${path}/edit`} color="teal.500">
               Edit Profile
             </Link>
-            <Link as={NextLink} href={`${path}/share`} color="teal.500">
-              Share Profile
-            </Link>
           </Box>
         </Box>
       </Box>
