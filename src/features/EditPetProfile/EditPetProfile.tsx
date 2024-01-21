@@ -79,8 +79,6 @@ const EditPetProfile = ({ petId }: EditPetProfileProps) => {
     router.push(`/pets/${petId}`);
   };
 
-  console.log(data.fur);
-
   return (
     <PageSection title="Edit Profile">
       <Form<FieldValues>
