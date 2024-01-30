@@ -13,7 +13,7 @@ const PetMenu = () => {
   return (
     <PageSection title="Your Mischief">
       <Box display="flex" flexWrap="wrap" gap={5}>
-        {pets.length > 0 &&
+        {pets?.length > 0 &&
           pets.map((pet: any) => (
             <AvatarLink key={pet.id} href={`/pets/${pet.id}`} text={pet.name} />
           ))}
