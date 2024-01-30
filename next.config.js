@@ -1,14 +1,4 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  async rewrites() {
-    return [
-      {
-        source: "/api/:path*",
-        destination: `http://${process.env.API_URL}/:path*`,
-        basePath: false,
-      },
-    ];
-  },
-};
+const nextConfig = {};
 
 module.exports = nextConfig;

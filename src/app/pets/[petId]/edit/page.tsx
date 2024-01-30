@@ -1,15 +1,9 @@
-import { getPetByIdPrefetch } from "@/api/pets";
+import { useGetPetById } from "@/api/getPetById";
 import { EditPetProfile } from "@/features/EditPetProfile";
 import { PageProps } from "@/types";
-import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 
-export default function EditPetProfilePage(props: PageProps) {
-  const { petId } = props.params;
-  const petsByIdQuery = getPetByIdPrefetch(petId);
+export default async function EditPetProfilePage(props: PageProps) {
+  const data = await useGetPetById(props.params.petId);
 
-  return (
-    <HydrationBoundary state={dehydrate(petsByIdQuery)}>
-      <EditPetProfile petId={petId} />
-    </HydrationBoundary>
-  );
+  return <EditPetProfile data={data} />;
 }
