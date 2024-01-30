@@ -1,7 +1,6 @@
 import { PetMenu } from "@/features/PetMenu";
-import getClient from "@/utils/getClient";
-import { Stack } from "@chakra-ui/react";
 import { gql } from "@urql/core";
+import { Suspense } from "react";
 
 const query = gql`
   query {
@@ -20,12 +19,9 @@ const query = gql`
 `;
 
 export default async function UserHomepage() {
-  const result = await getClient().query(query, {});
-  const data = result.data?.groups[0].pets;
-
   return (
-    <Stack>
-      <PetMenu data={data} />
-    </Stack>
+    <Suspense>
+      <PetMenu />
+    </Suspense>
   );
 }
