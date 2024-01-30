@@ -12,7 +12,7 @@ import {
 import { useMemo } from "react";
 
 export function Providers({ children }: { children: React.ReactNode }) {
-  console.log(process.env.VERCEL_URL);
+  console.log(process.env.NEXT_PUBLIC_VERCEL_URL);
   const [client, ssr] = useMemo(() => {
     const ssr = ssrExchange();
     const client = createClient({
