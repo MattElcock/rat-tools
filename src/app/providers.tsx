@@ -14,7 +14,8 @@ import { useMemo } from "react";
 export function Providers({ children }: { children: React.ReactNode }) {
   const [client, ssr] = useMemo(() => {
     const ssr = ssrExchange();
-    const clientUrl = `${process.env.NEXT_PUBLIC_VERCEL ? "https" : "http"}://${
+    console.log(process.env.NEXT_PUBLIC_VERCEL);
+    const clientUrl = `${process.env.NEXT_PUBLIC_VERCEL ? "http" : "https"}://${
       process.env.NEXT_PUBLIC_VERCEL_URL
     }/api/graphql`;
     const client = createClient({
