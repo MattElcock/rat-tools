@@ -1,6 +1,5 @@
 "use client";
 
-import { useCreatePet } from "@/api/pets";
 import { CheckboxField } from "@/components/CheckboxField";
 import { Form } from "@/components/Form";
 import { RadioField } from "@/components/RadioField";
@@ -38,23 +37,9 @@ const schema = yup.object({
 
 const AddNewPet = () => {
   const router = useRouter();
-  const createPetMutation = useCreatePet({
-    onSuccess: () => {
-      router.push("/pets");
-    },
-  });
 
   const handleSubmit = (data: FieldValues) => {
-    createPetMutation.mutate({
-      name: data.name,
-      dateOfBirth: data.dateOfBirth,
-      fur: data.fur,
-      sex: data.sex,
-      weight: {
-        taken: data.dateTaken,
-        reading: data.reading,
-      },
-    });
+    console.log(data);
   };
 
   const handleCancel = () => {

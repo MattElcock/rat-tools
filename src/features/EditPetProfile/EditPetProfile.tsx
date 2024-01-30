@@ -1,26 +1,18 @@
 "use client";
 
-import { useGetPetById, useUpdatePet } from "@/api/pets";
 import { CheckboxField } from "@/components/CheckboxField";
 import { Form } from "@/components/Form";
 import { RadioField } from "@/components/RadioField";
 import { TextField } from "@/components/TextField";
 import { requiredErrorMessage } from "@/constants/copy";
 import { PageSection } from "@/layouts/PageSection";
-import {
-  Box,
-  Button,
-  ButtonGroup,
-  Spinner,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
+import { Button, ButtonGroup, Stack } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/navigation";
 import * as yup from "yup";
 
 interface EditPetProfileProps {
-  petId: string;
+  data: any;
 }
 
 interface FieldValues {
@@ -40,43 +32,15 @@ const schema = yup.object({
     .required(requiredErrorMessage),
 });
 
-const EditPetProfile = ({ petId }: EditPetProfileProps) => {
+const EditPetProfile = ({ data }: EditPetProfileProps) => {
   const router = useRouter();
-  const { isLoading, data: response } = useGetPetById(petId);
-  const updatePetMutation = useUpdatePet(petId, {
-    onSuccess: () => {
-      router.push(`/pets/${petId}`);
-    },
-  });
-
-  if (isLoading) {
-    return (
-      <Box
-        display="flex"
-        alignItems="center"
-        flexDirection="column"
-        gap={5}
-        mt={10}
-      >
-        <Spinner size="xl" />
-        <Text>Loading information...</Text>
-      </Box>
-    );
-  }
-
-  const data = response.data.attributes;
 
   const handleSubmit = (data: FieldValues) => {
-    updatePetMutation.mutate({
-      name: data.name,
-      sex: data.sex,
-      dateOfBirth: data.dateOfBirth,
-      fur: data.fur,
-    });
+    console.log(data);
   };
 
   const handleCancel = () => {
-    router.push(`/pets/${petId}`);
+    router.push(`/pets/${data.id}`);
   };
 
   return (
