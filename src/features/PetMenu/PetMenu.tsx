@@ -8,7 +8,7 @@ import { IoAdd } from "react-icons/io5";
 
 const PetMenu = () => {
   const { data } = useListPets();
-  const pets: any = data.groups[0].pets;
+  const pets: any = data?.groups[0].pets;
 
   return (
     <PageSection title="Your Mischief">
