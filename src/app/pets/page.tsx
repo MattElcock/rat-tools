@@ -21,7 +21,7 @@ const query = gql`
 
 export default async function UserHomepage() {
   const result = await getClient().query(query, {});
-  const data = result.data.groups[0].pets;
+  const data = result.data?.groups[0].pets;
 
   return (
     <Stack>

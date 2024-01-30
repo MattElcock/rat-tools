@@ -31,7 +31,7 @@ const useGetPetById = async (id: string): Promise<Pet> => {
     id,
   });
 
-  const data = result.data.getPetById;
+  const data = result.data?.getPetById;
 
   return data;
 };
