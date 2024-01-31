@@ -16,10 +16,14 @@ const query = gql`
   }
 `;
 
-const useListPets = () => {
+const useListGroups = () => {
   const [result] = useQuery({ query });
 
-  return { isLoading: result.fetching, error: result.error, data: result.data };
+  return {
+    isLoading: result.fetching,
+    error: result.error,
+    data: result.data,
+  };
 };
 
-export { useListPets };
+export { useListGroups };

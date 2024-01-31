@@ -1,5 +1,6 @@
 "use client";
 
+import { useGetPetById } from "@/api/getPetById";
 import { CheckboxField } from "@/components/CheckboxField";
 import { Form } from "@/components/Form";
 import { RadioField } from "@/components/RadioField";
@@ -12,7 +13,7 @@ import { useRouter } from "next/navigation";
 import * as yup from "yup";
 
 interface EditPetProfileProps {
-  data: any;
+  petId: string;
 }
 
 interface FieldValues {
@@ -32,7 +33,8 @@ const schema = yup.object({
     .required(requiredErrorMessage),
 });
 
-const EditPetProfile = ({ data }: EditPetProfileProps) => {
+const EditPetProfile = ({ petId }: EditPetProfileProps) => {
+  const { data } = useGetPetById(petId);
   const router = useRouter();
 
   const handleSubmit = (data: FieldValues) => {
