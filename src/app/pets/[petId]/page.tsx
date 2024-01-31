@@ -1,9 +1,8 @@
 import { useGetPetById } from "@/api/getPetById";
 import { PetProfile } from "@/features/PetProfile";
 import { PageProps } from "@/types";
+import { Suspense } from "react";
 
-export default async function PetProfilePage(props: PageProps) {
-  const data = await useGetPetById(props.params.petId);
-
-  return <PetProfile data={data} />;
+export default function PetProfilePage(props: PageProps) {
+  return <PetProfile petId={props.params.petId} />;
 }

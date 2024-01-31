@@ -1,15 +1,5 @@
-import getClient from "@/utils/getClient";
 import { gql } from "@urql/core";
-
-type Pet = {
-  name: string;
-  sex: "Male" | "Female";
-  latestWeight: {
-    dateTaken: string;
-    value: number;
-  };
-  fur: string[];
-};
+import { useQuery } from "@urql/next";
 
 const query = gql`
   query ($id: String!) {
@@ -26,14 +16,14 @@ const query = gql`
   }
 `;
 
-const useGetPetById = async (id: string): Promise<Pet> => {
-  const result = await getClient().query(query, {
-    id,
-  });
+const useGetPetById = (id: string) => {
+  const [result] = useQuery({ query, variables: { id } });
 
-  const data = result.data?.getPetById;
-
-  return data;
+  return {
+    isLoading: result.fetching,
+    error: result.error,
+    data: result.data?.getPetById,
+  };
 };
 
 export { useGetPetById };
