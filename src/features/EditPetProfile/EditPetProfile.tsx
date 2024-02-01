@@ -52,7 +52,7 @@ const EditPetProfile = ({ petId }: EditPetProfileProps) => {
         resolver={yupResolver(schema)}
         defaultValues={{
           name: data.name,
-          dateOfBirth: new Date(data.dateOfBirth),
+          dateOfBirth: data.dateOfBirth,
           sex: data.sex,
           fur: data.fur,
         }}
