@@ -55,12 +55,7 @@ const PetProfile = ({ petId }: PetProfileProps) => {
             {data.name}
           </Text>
           <Box display="flex" gap={3}>
-            <Link
-              as={NextLink}
-              href={`/pets/${data.id}/edit`}
-              color="#669ee9"
-              textDecoration="underline"
-            >
+            <Link as={NextLink} href={`/pets/${data.id}/edit`}>
               Edit Profile
             </Link>
           </Box>
