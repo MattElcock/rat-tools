@@ -12,9 +12,10 @@ const Footer = () => {
           Curious rats image by{" "}
           <Link
             href="https://www.freepik.com/free-vector/hand-drawn-rat-silhouette_49273747.htm"
-            color="teal.500"
+            color="#669ee9"
             target="_blank"
             rel="noopener"
+            textDecoration="underline"
           >
             Freepik
           </Link>

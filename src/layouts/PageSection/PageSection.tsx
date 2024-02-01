@@ -9,8 +9,8 @@ interface PageSectionProps {
 const PageSection = ({ title, children }: PageSectionProps) => {
   return (
     <Box>
-      <Stack spacing={3}>
-        <Text fontSize="3xl" as="h3" lineHeight={1}>
+      <Stack spacing={4}>
+        <Text fontSize="2xl" as="h3" lineHeight={1}>
           {title}
         </Text>
         {children}
