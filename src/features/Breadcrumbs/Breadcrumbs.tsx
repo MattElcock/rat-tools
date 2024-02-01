@@ -26,7 +26,12 @@ const Breadcrumbs = () => {
           const link = pathAsArray.filter((_, j) => j <= i).join("/");
           return (
             <BreadcrumbItem key={i}>
-              <BreadcrumbLink href={`/${link}`} as={NextLink} color="teal.500">
+              <BreadcrumbLink
+                href={`/${link}`}
+                as={NextLink}
+                color="#669ee9"
+                textDecoration="underline"
+              >
                 {upperFirst(pathSegment)}
               </BreadcrumbLink>
             </BreadcrumbItem>

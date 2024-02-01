@@ -1,6 +1,7 @@
 "use client";
 
 import { useGetPetById } from "@/api/getPetById";
+import { CallToAction } from "@/components/CallToAction";
 import { Stat } from "@/components/Stat";
 import { PageSection } from "@/layouts/PageSection";
 import { Avatar, Box, Link, Spinner, Stack, Text } from "@chakra-ui/react";
@@ -10,6 +11,7 @@ import {
   IoColorPaletteOutline,
   IoMaleFemaleOutline,
   IoScaleOutline,
+  IoThermometerOutline,
 } from "react-icons/io5";
 
 interface PetProfileProps {
@@ -40,7 +42,7 @@ const PetProfile = ({ petId }: PetProfileProps) => {
   });
 
   return (
-    <Stack spacing={5}>
+    <Stack spacing={7}>
       <Box
         display="grid"
         gridTemplateColumns="auto 1fr"
@@ -53,35 +55,51 @@ const PetProfile = ({ petId }: PetProfileProps) => {
             {data.name}
           </Text>
           <Box display="flex" gap={3}>
-            <Link as={NextLink} href={`/pets/${data.id}/edit`} color="teal.500">
+            <Link
+              as={NextLink}
+              href={`/pets/${data.id}/edit`}
+              color="#669ee9"
+              textDecoration="underline"
+            >
               Edit Profile
             </Link>
           </Box>
         </Box>
       </Box>
-      <PageSection title="At a Glance">
-        <Box display="grid" gridTemplateColumns="1fr 1fr" gap={3}>
-          <Stat icon={<IoMaleFemaleOutline />} title="Sex" value={data.sex} />
-          <Stat
-            icon={<IoCalendarOutline />}
-            title="Date of Birth"
-            value={longDateFormatter.format(new Date(data.dateOfBirth))}
-          />
-          <Stat
-            icon={<IoScaleOutline />}
-            title="Latest Weight"
-            subtitle={longDateFormatter.format(
-              new Date(data.latestWeight.dateTaken)
-            )}
-            value={`${data.latestWeight.value} grams`}
-          />
-          <Stat
-            icon={<IoColorPaletteOutline />}
-            title="Fur"
-            value={data.fur.join(" / ")}
-          />
-        </Box>
-      </PageSection>
+      <Box display="grid" gridTemplateColumns="1fr 1fr" gap={3}>
+        <Stat icon={<IoMaleFemaleOutline />} title="Sex" value={data.sex} />
+        <Stat
+          icon={<IoCalendarOutline />}
+          title="Date of Birth"
+          value={longDateFormatter.format(new Date(data.dateOfBirth))}
+        />
+        <Stat
+          icon={<IoScaleOutline />}
+          title="Latest Weight"
+          subtitle={longDateFormatter.format(
+            new Date(data.latestWeight.dateTaken)
+          )}
+          value={`${data.latestWeight.value} grams`}
+        />
+        <Stat
+          icon={<IoColorPaletteOutline />}
+          title="Fur"
+          value={data.fur.join(" / ")}
+        />
+      </Box>
+      <CallToAction
+        href="#"
+        icon={<IoScaleOutline />}
+        title={`Track ${data.name}'s weight`}
+        text="This helps you and your vet recognize sickness earlier and track
+                recovery over time."
+      />
+      <CallToAction
+        href="#"
+        icon={<IoThermometerOutline />}
+        title={`Track ${data.name}'s symptoms`}
+        text="This helps you and your vet recognize new symptoms and track the development of existing ones."
+      />
     </Stack>
   );
 };
