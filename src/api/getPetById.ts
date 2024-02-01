@@ -6,6 +6,7 @@ const query = gql`
     getPetById(id: $id) {
       id
       name
+      dateOfBirth
       sex
       latestWeight {
         dateTaken

@@ -20,17 +20,14 @@ const getPetByIdResolver = (_parent: any, args: resolverArgs) => {
 
   const weights = data.weights.map(
     (weight) =>
-      new Weight(
-        weight.metric as Metric,
-        weight.value,
-        new Date(weight.dateTaken)
-      )
+      new Weight(weight.metric as Metric, weight.value, weight.dateTaken)
   );
 
   return new Pet(
     data.id,
     Species.Rat,
     data.name,
+    data.dateOfBirth,
     data.sex as Sex,
     data.fur as Fur[],
     weights

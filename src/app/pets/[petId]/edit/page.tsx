@@ -1,4 +1,3 @@
-import { useGetPetById } from "@/api/getPetById";
 import { EditPetProfile } from "@/features/EditPetProfile";
 import { PageProps } from "@/types";
 import { Suspense } from "react";

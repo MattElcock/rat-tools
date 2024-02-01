@@ -8,6 +8,7 @@ export class Pet {
   id: string;
   species: Species;
   name: string;
+  dateOfBirth: string;
   sex: Sex;
   fur: Fur[];
   weights: Weight[];
@@ -16,6 +17,7 @@ export class Pet {
     id: string,
     species: Species,
     name: string,
+    dateOfBirth: string,
     sex: Sex,
     fur: Fur[],
     weights: Weight[]
@@ -23,6 +25,7 @@ export class Pet {
     this.id = id;
     this.species = species;
     this.name = name;
+    this.dateOfBirth = dateOfBirth;
     this.sex = sex;
     this.fur = fur;
     this.weights = weights;
@@ -37,12 +40,16 @@ builder.objectType(Pet, {
     name: t.exposeString("name"),
     species: t.field({ type: Species, resolve: (parent) => parent.species }),
     sex: t.field({ type: Sex, resolve: (parent) => parent.sex }),
+    dateOfBirth: t.exposeString("dateOfBirth"),
     fur: t.field({ type: [Fur], resolve: (parent) => parent.fur }),
     latestWeight: t.field({
       type: Weight,
       resolve: (parent) => {
         const weights = parent.weights;
-        weights.sort((a, b) => b.dateTaken.getTime() - a.dateTaken.getTime());
+        weights.sort(
+          (a, b) =>
+            new Date(b.dateTaken).getTime() - new Date(a.dateTaken).getTime()
+        );
         return weights[0];
       },
     }),
