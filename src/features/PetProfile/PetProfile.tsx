@@ -65,7 +65,7 @@ const PetProfile = ({ petId }: PetProfileProps) => {
           <Stat
             icon={<IoCalendarOutline />}
             title="Date of Birth"
-            value={longDateFormatter.format(new Date("11/11/11"))}
+            value={longDateFormatter.format(new Date(data.dateOfBirth))}
           />
           <Stat
             icon={<IoScaleOutline />}

@@ -14,17 +14,14 @@ const groupResolver = (_parent: any, _args: any) => {
     const pets = item.pets.map((pet) => {
       const weights = pet.weights.map(
         (weight) =>
-          new Weight(
-            weight.metric as Metric,
-            weight.value,
-            new Date(weight.dateTaken)
-          )
+          new Weight(weight.metric as Metric, weight.value, weight.dateTaken)
       );
 
       return new Pet(
         pet.id,
         Species.Rat,
         pet.name,
+        pet.dateOfBirth,
         pet.sex as Sex,
         pet.fur as Fur[],
         weights

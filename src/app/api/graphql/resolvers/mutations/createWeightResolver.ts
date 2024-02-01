@@ -8,7 +8,7 @@ type resolverArgs = {
 };
 
 const createWeightResolver = (_parent: any, args: resolverArgs) => {
-  return new Weight(args.metric, args.value, new Date(args.dateTaken));
+  return new Weight(args.metric, args.value, args.dateTaken);
 };
 
 export default createWeightResolver;

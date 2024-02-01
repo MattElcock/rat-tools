@@ -38,6 +38,7 @@ builder.mutationType({
       type: Pet,
       args: {
         name: t.arg.string({ required: true }),
+        dateOfBirth: t.arg.string({ required: true }),
         species: t.arg({ type: Species, required: true }),
         sex: t.arg({ type: Sex, required: true }),
         fur: t.arg({ type: [Fur], required: true }),

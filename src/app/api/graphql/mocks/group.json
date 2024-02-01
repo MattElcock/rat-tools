@@ -5,6 +5,7 @@
       {
         "id": "1",
         "name": "Pan",
+        "dateOfBirth": "2022-08-30T00:00:00.000Z",
         "sex": "Male",
         "fur": [
           "White",
@@ -37,6 +38,7 @@
         "id": "2",
         "name": "Patch",
         "sex": "Male",
+        "dateOfBirth": "2023-05-27T00:00:00.000Z",
         "fur": [
           "Black",
           "White"
@@ -67,6 +69,7 @@
       {
         "id": "3",
         "name": "Boo",
+        "dateOfBirth": "2023-05-27T00:00:00.000Z",
         "sex": "Male",
         "fur": [
           "White"
