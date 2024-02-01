@@ -1,5 +1,6 @@
 "use client";
 
+import theme from "@/app/theme";
 import {
   Box,
   Breadcrumb,
@@ -26,12 +27,7 @@ const Breadcrumbs = () => {
           const link = pathAsArray.filter((_, j) => j <= i).join("/");
           return (
             <BreadcrumbItem key={i}>
-              <BreadcrumbLink
-                href={`/${link}`}
-                as={NextLink}
-                color="#669ee9"
-                textDecoration="underline"
-              >
+              <BreadcrumbLink href={`/${link}`} as={NextLink}>
                 {upperFirst(pathSegment)}
               </BreadcrumbLink>
             </BreadcrumbItem>

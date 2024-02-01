@@ -119,11 +119,7 @@ const AddNewPet = () => {
               </Stack>
               <ButtonGroup flexDirection="column" gap={3}>
                 <Button type="submit">Submit Form</Button>
-                <Button
-                  colorScheme="teal"
-                  variant="link"
-                  onClick={handleCancel}
-                >
+                <Button variant="link" onClick={handleCancel}>
                   Cancel
                 </Button>
               </ButtonGroup>

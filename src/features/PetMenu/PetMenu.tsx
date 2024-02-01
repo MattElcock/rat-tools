@@ -13,10 +13,14 @@ const PetMenu = () => {
 
   return (
     <PageSection title="Your Mischief">
-      <Box display="flex" flexWrap="wrap" gap={5}>
+      <Box
+        display="grid"
+        gridTemplateColumns="1fr 1fr 1fr"
+        columnGap={2}
+        rowGap={5}
+      >
         {isLoading && (
           <>
-            <SkeletonAvatarLink />
             <SkeletonAvatarLink />
             <SkeletonAvatarLink />
             <SkeletonAvatarLink />

@@ -1,3 +1,4 @@
+import theme from "@/app/theme";
 import {
   Box,
   Card,
@@ -26,7 +27,7 @@ const CallToAction = ({ icon, title, text, href }: CallToActionProps) => {
         overflow="hidden"
         variant="elevated"
         borderRadius={10}
-        bg="#669ee9"
+        bg={theme.colors.brand[300]}
         color="white"
       >
         <Box

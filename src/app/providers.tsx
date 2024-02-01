@@ -11,6 +11,7 @@ import {
 } from "@urql/next";
 
 import { useMemo } from "react";
+import theme from "./theme";
 
 const getClientUrl = () => {
   const slug = "api/graphql";
@@ -43,7 +44,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <UrqlProvider client={client} ssr={ssr}>
         {children}
       </UrqlProvider>
