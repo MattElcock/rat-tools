@@ -3,7 +3,6 @@
 import { useGetPetById } from "@/api/getPetById";
 import { CallToAction } from "@/components/CallToAction";
 import { Stat } from "@/components/Stat";
-import { PageSection } from "@/layouts/PageSection";
 import { Avatar, Box, Link, Spinner, Stack, Text } from "@chakra-ui/react";
 import NextLink from "next/link";
 import {
@@ -83,7 +82,7 @@ const PetProfile = ({ petId }: PetProfileProps) => {
         />
       </Box>
       <CallToAction
-        href="#"
+        href={`/pets/${data.id}/weight-tracker`}
         icon={<IoScaleOutline />}
         title={`Track ${data.name}'s weight`}
         text="This helps you and your vet recognize sickness earlier and track
