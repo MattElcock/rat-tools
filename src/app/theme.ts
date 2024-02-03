@@ -1,4 +1,4 @@
-import { defineStyle, defineStyleConfig, extendTheme } from "@chakra-ui/react";
+import { extendTheme } from "@chakra-ui/react";
 
 const brandColours = {
   50: "#e3f2ff",
@@ -28,6 +28,7 @@ const theme = extendTheme({
       variants: {
         solid: { backgroundColor: brandColours[300], color: "white" },
         link: { color: brandColours[300] },
+        outline: { borderColor: brandColours[300], color: brandColours[300] },
       },
     },
     Breadcrumb: {
