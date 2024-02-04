@@ -1,9 +1,10 @@
 "use client";
 
-import { DataPeriod, DateRange, PeriodFilter } from "@/components/PeriodFilter";
+import { DataPeriod, PeriodFilter } from "@/components/PeriodFilter";
 import { PageSection } from "@/layouts/PageSection";
 import { Box, Heading, Stack } from "@chakra-ui/react";
 import { DataTable } from "./components/DataTable";
+import { Graph } from "./components/Graph";
 
 interface Props {
   petId: string;
@@ -16,12 +17,12 @@ const WeightTracker = ({ petId }: Props) => {
         <PeriodFilter defaultPeriod={DataPeriod.Week}>
           {(dateRange, currentPeriod) => {
             return (
-              <Stack spacing={5}>
+              <Stack spacing={4}>
                 <Stack spacing={2}>
                   <Heading as="h6" size="sm" fontWeight={500}>
                     Graph
                   </Heading>
-                  <p>TODO</p>
+                  <Graph petId={petId} dateRange={dateRange} />
                 </Stack>
                 <Stack spacing={2}>
                   <Heading as="h6" size="sm" fontWeight={500}>
