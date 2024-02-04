@@ -2,7 +2,7 @@
 
 import { useGetWeightsByPetId } from "@/api/getWeightsByPetId";
 import theme from "@/app/theme";
-import { DateRange } from "@/components/PeriodFilter";
+import { DataPeriod, DateRange } from "@/components/PeriodFilter";
 import { ApexOptions } from "apexcharts";
 import moment from "moment";
 import dynamic from "next/dynamic";
@@ -11,9 +11,10 @@ const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 interface GraphProps {
   petId: string;
   dateRange: DateRange;
+  currentPeriod: DataPeriod;
 }
 
-const Graph = ({ petId, dateRange }: GraphProps) => {
+const Graph = ({ petId, dateRange, currentPeriod }: GraphProps) => {
   const { data, isLoading } = useGetWeightsByPetId(
     petId,
     dateRange.start,
@@ -53,12 +54,16 @@ const Graph = ({ petId, dateRange }: GraphProps) => {
       type: "datetime",
       labels: {
         formatter: (_value, timestamp, _opts) => {
-          return moment(timestamp).format("Do");
+          return moment(timestamp).format(
+            currentPeriod === DataPeriod.Custom ? "D MMM" : "Do"
+          );
         },
       },
       tooltip: {
         formatter: (value) => {
-          return moment(value).format("dddd Do");
+          return moment(value).format(
+            currentPeriod === DataPeriod.Custom ? "dddd, Do MMMM" : "dddd Do"
+          );
         },
       },
     },

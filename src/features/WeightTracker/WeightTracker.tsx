@@ -14,7 +14,7 @@ const WeightTracker = ({ petId }: Props) => {
   return (
     <PageSection title="Weight Tracker">
       <Box mt={5}>
-        <PeriodFilter defaultPeriod={DataPeriod.Week}>
+        <PeriodFilter defaultPeriod={DataPeriod.Month}>
           {(dateRange, currentPeriod) => {
             return (
               <Stack spacing={4}>
@@ -22,7 +22,11 @@ const WeightTracker = ({ petId }: Props) => {
                   <Heading as="h6" size="sm" fontWeight={500}>
                     Graph
                   </Heading>
-                  <Graph petId={petId} dateRange={dateRange} />
+                  <Graph
+                    petId={petId}
+                    dateRange={dateRange}
+                    currentPeriod={currentPeriod}
+                  />
                 </Stack>
                 <Stack spacing={2}>
                   <Heading as="h6" size="sm" fontWeight={500}>

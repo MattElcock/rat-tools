@@ -22,7 +22,7 @@ const getWeightsByPetIdResolver = (_parent: any, args: ResolverArgs) => {
     const from = args.from ? new Date(args.from).getTime() : null;
     const to = args.to ? new Date(args.to).getTime() : null;
 
-    return (!from || date > from) && (!to || date < to);
+    return (!from || date >= from) && (!to || date <= to);
   });
 
   const mappedWeights = filteredWeights.map(
