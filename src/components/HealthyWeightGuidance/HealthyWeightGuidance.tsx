@@ -1,18 +1,12 @@
-import theme from "@/app/theme";
 import {
-  Alert,
-  AlertDescription,
-  AlertTitle,
-  Text,
-  IconButton,
-  Stack,
-  useDisclosure,
-  Link,
-  Box,
   Card,
-  CardHeader,
   CardBody,
+  CardHeader,
   Heading,
+  Link,
+  Stack,
+  Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { IoChevronDown, IoChevronUp } from "react-icons/io5";
 
