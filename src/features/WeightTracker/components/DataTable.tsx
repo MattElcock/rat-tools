@@ -34,7 +34,19 @@ const DataTable = ({ petId, dateRange, currentPeriod }: Props) => {
     dateRange.end
   );
 
-  const dayFormat = currentPeriod === DataPeriod.Week ? "dddd" : "dddd, Do";
+  const getDayFormat = () => {
+    switch (currentPeriod) {
+      case DataPeriod.Week: {
+        return "dddd";
+      }
+      case DataPeriod.Month: {
+        return "dddd, Do";
+      }
+      case DataPeriod.Custom: {
+        return "dddd, Do MMMM";
+      }
+    }
+  };
 
   if (isLoading) {
     return (
@@ -95,7 +107,7 @@ const DataTable = ({ petId, dateRange, currentPeriod }: Props) => {
             data.weights.map((weight: any) => (
               <Tr key={weight.dateTaken}>
                 <RowHeading>
-                  {moment(weight.dateTaken).format(dayFormat)}
+                  {moment(weight.dateTaken).format(getDayFormat())}
                 </RowHeading>
                 <Td isNumeric>{weight.value}g</Td>
               </Tr>

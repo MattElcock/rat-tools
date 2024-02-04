@@ -3,17 +3,27 @@ import {
   Box,
   Button,
   ButtonGroup,
+  FormControl,
+  FormLabel,
   IconButton,
+  Input,
   Stack,
   Text,
 } from "@chakra-ui/react";
 import moment from "moment";
-import { ReactNode, useEffect, useState } from "react";
+import {
+  ChangeEvent,
+  ChangeEventHandler,
+  ReactNode,
+  useEffect,
+  useState,
+} from "react";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
 
 export enum DataPeriod {
   Week = "Week",
   Month = "Month",
+  Custom = "Custom",
 }
 
 interface PeriodFilterProps {
@@ -54,7 +64,7 @@ const calculateMonth = (date: Date): DateRange => {
 
 const PeriodFilter = ({
   children,
-  periods = [DataPeriod.Week, DataPeriod.Month],
+  periods = [DataPeriod.Week, DataPeriod.Month, DataPeriod.Custom],
   defaultPeriod,
 }: PeriodFilterProps) => {
   const [dateRange, setDateRange] = useState<DateRange>(
@@ -107,6 +117,20 @@ const PeriodFilter = ({
     }
   };
 
+  const handleFromDateChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setDateRange((dateRange) => ({
+      start: e.target.value,
+      end: dateRange.end,
+    }));
+  };
+
+  const handleToDateChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setDateRange((dateRange) => ({
+      start: dateRange.start,
+      end: e.target.value,
+    }));
+  };
+
   return (
     <Stack spacing={5}>
       <Box display="flex" justifyContent="center">
@@ -137,36 +161,60 @@ const PeriodFilter = ({
               ))}
             </ButtonGroup>
           </Box>
-          <Box
-            display="grid"
-            gridTemplateColumns={
-              currentPeriod === DataPeriod.Week
-                ? "auto 15rem auto"
-                : "auto 10rem auto"
-            }
-            gap={5}
-            alignItems="center"
-            textAlign="center"
-          >
-            <IconButton
-              variant="outline"
-              isRound
-              aria-label={`Last ${currentPeriod}`}
-              icon={<IoChevronBack />}
-              size="sm"
-              onClick={handleLastPeriod}
-            />
-            {dateRange && <Text>{formatDate(dateRange, currentPeriod)}</Text>}
-            <IconButton
-              variant="outline"
-              isRound
-              aria-label={`Next ${currentPeriod}`}
-              icon={<IoChevronForward />}
-              size="sm"
-              onClick={handleNextPeriod}
-              isDisabled={isCurrentPeriod}
-            />
-          </Box>
+          {currentPeriod === DataPeriod.Custom ? (
+            <Box display="flex" gap={5} justifyContent="center">
+              <FormControl>
+                <FormLabel fontSize="small">From</FormLabel>
+                <Input
+                  type="date"
+                  size="sm"
+                  value={dateRange.start}
+                  onChange={handleFromDateChange}
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel fontSize="small">To</FormLabel>
+                <Input
+                  type="date"
+                  size="sm"
+                  value={dateRange.end}
+                  onChange={handleToDateChange}
+                  max={new Date().toISOString().split("T")[0]}
+                />
+              </FormControl>
+            </Box>
+          ) : (
+            <Box
+              display="grid"
+              gridTemplateColumns={
+                currentPeriod === DataPeriod.Week
+                  ? "auto 15rem auto"
+                  : "auto 10rem auto"
+              }
+              gap={5}
+              alignItems="center"
+              textAlign="center"
+            >
+              <IconButton
+                variant="outline"
+                isRound
+                aria-label={`Last ${currentPeriod}`}
+                icon={<IoChevronBack />}
+                size="sm"
+                onClick={handleLastPeriod}
+              />
+              {dateRange && <Text>{formatDate(dateRange, currentPeriod)}</Text>}
+              <IconButton
+                variant="outline"
+                isRound
+                aria-label={`Next ${currentPeriod}`}
+                icon={<IoChevronForward />}
+                size="sm"
+                onClick={handleNextPeriod}
+                isDisabled={isCurrentPeriod}
+              />
+            </Box>
+          )}
         </Stack>
       </Box>
       {children(dateRange, currentPeriod)}
