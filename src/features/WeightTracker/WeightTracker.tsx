@@ -1,5 +1,6 @@
 "use client";
 
+import { HealthyWeightGuidance } from "@/components/HealthyWeightGuidance";
 import { DataPeriod, PeriodFilter } from "@/components/PeriodFilter";
 import { PageSection } from "@/layouts/PageSection";
 import { Box, Heading, Stack } from "@chakra-ui/react";
@@ -18,16 +19,12 @@ const WeightTracker = ({ petId }: Props) => {
           {(dateRange, currentPeriod) => {
             return (
               <Stack spacing={4}>
-                <Stack spacing={2}>
-                  <Heading as="h6" size="sm" fontWeight={500}>
-                    Graph
-                  </Heading>
-                  <Graph
-                    petId={petId}
-                    dateRange={dateRange}
-                    currentPeriod={currentPeriod}
-                  />
-                </Stack>
+                <Graph
+                  petId={petId}
+                  dateRange={dateRange}
+                  currentPeriod={currentPeriod}
+                />
+                <HealthyWeightGuidance />
                 <Stack spacing={2}>
                   <Heading as="h6" size="sm" fontWeight={500}>
                     Data
