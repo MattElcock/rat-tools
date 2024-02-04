@@ -19,7 +19,7 @@ export enum DataPeriod {
 interface PeriodFilterProps {
   defaultPeriod: DataPeriod;
   periods?: DataPeriod[];
-  children: (dateRange: DateRange) => ReactNode;
+  children: (dateRange: DateRange, currentPeriod: DataPeriod) => ReactNode;
 }
 
 export interface DateRange {
@@ -169,7 +169,7 @@ const PeriodFilter = ({
           </Box>
         </Stack>
       </Box>
-      {children(dateRange)}
+      {children(dateRange, currentPeriod)}
     </Stack>
   );
 };

@@ -1,35 +1,41 @@
 "use client";
 
-import { useGetWeightsByPetId } from "@/api/getWeightsByPetId";
-import { DataPeriod, PeriodFilter } from "@/components/PeriodFilter";
+import { DataPeriod, DateRange, PeriodFilter } from "@/components/PeriodFilter";
 import { PageSection } from "@/layouts/PageSection";
-import { Box } from "@chakra-ui/react";
+import { Box, Heading, Stack } from "@chakra-ui/react";
+import { DataTable } from "./components/DataTable";
 
 interface Props {
   petId: string;
+  dateRange: DateRange;
+  currentPeriod: DataPeriod;
 }
 
-const Graph = ({ petId }: Props) => {
-  const { data, isLoading } = useGetWeightsByPetId(petId);
-  return <p>Graph</p>;
-};
-
 const WeightTracker = ({ petId }: Props) => {
-  const { data, isLoading } = useGetWeightsByPetId(petId);
-
-  if (isLoading || !data) {
-    return <p>Loading</p>;
-  }
-
   return (
     <PageSection title="Weight Tracker">
       <Box mt={5}>
         <PeriodFilter defaultPeriod={DataPeriod.Week}>
-          {(dateRange) => {
+          {(dateRange, currentPeriod) => {
             return (
-              <>
-                <Graph petId={petId} />
-              </>
+              <Stack spacing={5}>
+                <Stack spacing={2}>
+                  <Heading as="h6" size="sm" fontWeight={500}>
+                    Graph
+                  </Heading>
+                  <p>TODO</p>
+                </Stack>
+                <Stack spacing={2}>
+                  <Heading as="h6" size="sm" fontWeight={500}>
+                    Data
+                  </Heading>
+                  <DataTable
+                    petId={petId}
+                    dateRange={dateRange}
+                    currentPeriod={currentPeriod}
+                  />
+                </Stack>
+              </Stack>
             );
           }}
         </PeriodFilter>

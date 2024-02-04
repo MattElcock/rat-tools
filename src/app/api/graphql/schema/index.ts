@@ -2,6 +2,7 @@ import createGroupResolver from "../resolvers/mutations/createGroupResolver";
 import createPetResolver from "../resolvers/mutations/createPetResolver";
 import createWeightResolver from "../resolvers/mutations/createWeightResolver";
 import getPetByIdResolver from "../resolvers/queries/getPetByIdResolver";
+import getWeightsByPetIdResolver from "../resolvers/queries/getWeightsByPetIdResolver";
 import groupResolver from "../resolvers/queries/groupResolver";
 import { builder } from "./builder";
 import { Fur } from "./enums/Fur";
@@ -26,6 +27,15 @@ builder.queryType({
         id: t.arg.string({ required: true }),
       },
       resolve: getPetByIdResolver,
+    }),
+    getWeightsByPetId: t.field({
+      type: [Weight],
+      args: {
+        petId: t.arg.string({ required: true }),
+        from: t.arg.string(),
+        to: t.arg.string(),
+      },
+      resolve: getWeightsByPetIdResolver,
     }),
   }),
 });
