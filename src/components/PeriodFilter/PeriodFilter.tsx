@@ -11,13 +11,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import moment from "moment";
-import {
-  ChangeEvent,
-  ChangeEventHandler,
-  ReactNode,
-  useEffect,
-  useState,
-} from "react";
+import { ChangeEvent, ReactNode, useEffect, useState } from "react";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
 
 export enum DataPeriod {
@@ -134,7 +128,7 @@ const PeriodFilter = ({
   return (
     <Stack spacing={5}>
       <Box display="flex" justifyContent="center">
-        <Stack spacing={2}>
+        <Stack spacing={3}>
           <Box width="inherit" display="flex" justifyContent="center">
             <ButtonGroup isAttached>
               {periods.map((period) => (
@@ -167,7 +161,6 @@ const PeriodFilter = ({
                 <FormLabel fontSize="small">From</FormLabel>
                 <Input
                   type="date"
-                  size="sm"
                   value={dateRange.start}
                   onChange={handleFromDateChange}
                 />
@@ -176,7 +169,6 @@ const PeriodFilter = ({
                 <FormLabel fontSize="small">To</FormLabel>
                 <Input
                   type="date"
-                  size="sm"
                   value={dateRange.end}
                   onChange={handleToDateChange}
                   max={new Date().toISOString().split("T")[0]}
