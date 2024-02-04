@@ -7,8 +7,6 @@ import { DataTable } from "./components/DataTable";
 
 interface Props {
   petId: string;
-  dateRange: DateRange;
-  currentPeriod: DataPeriod;
 }
 
 const WeightTracker = ({ petId }: Props) => {
