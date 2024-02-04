@@ -91,8 +91,8 @@ const DataTable = ({ petId, dateRange, currentPeriod }: Props) => {
           </Tr>
         </Thead>
         <Tbody>
-          {data.length > 0 &&
-            data.map((weight: any) => (
+          {data.weights.length > 0 &&
+            data.weights.map((weight: any) => (
               <Tr key={weight.dateTaken}>
                 <RowHeading>
                   {moment(weight.dateTaken).format(dayFormat)}
@@ -100,7 +100,7 @@ const DataTable = ({ petId, dateRange, currentPeriod }: Props) => {
                 <Td isNumeric>{weight.value}g</Td>
               </Tr>
             ))}
-          {data.length === 0 && (
+          {data.weights.length === 0 && (
             <Tr>
               <Td colSpan={2}>No data</Td>
             </Tr>
