@@ -52,10 +52,13 @@ describe("<PeriodFilter />", () => {
         </PeriodFilter>
       );
 
-      expect(mockChildren).toHaveBeenLastCalledWith({
-        start: "2024-01-29T00:00:00.000Z",
-        end: "2024-02-04T23:59:59.999Z",
-      });
+      expect(mockChildren).toHaveBeenLastCalledWith(
+        {
+          start: "2024-01-29T00:00:00.000Z",
+          end: "2024-02-04T23:59:59.999Z",
+        },
+        "Week"
+      );
     });
 
     it("should give children the updated daterange when the last period button is pressed", async () => {
@@ -70,10 +73,13 @@ describe("<PeriodFilter />", () => {
       const user = userEvent.setup({ delay: null });
       await user.click(screen.getByLabelText("Last Week"));
 
-      expect(mockChildren).toHaveBeenLastCalledWith({
-        start: "2024-01-22T00:00:00.000Z",
-        end: "2024-01-28T23:59:59.999Z",
-      });
+      expect(mockChildren).toHaveBeenLastCalledWith(
+        {
+          start: "2024-01-22T00:00:00.000Z",
+          end: "2024-01-28T23:59:59.999Z",
+        },
+        "Week"
+      );
     });
 
     it("should give children the updated daterange when the next period button is pressed", async () => {
@@ -89,10 +95,13 @@ describe("<PeriodFilter />", () => {
       await user.click(screen.getByLabelText("Last Week"));
       await user.click(screen.getByLabelText("Next Week"));
 
-      expect(mockChildren).toHaveBeenLastCalledWith({
-        start: "2024-01-29T00:00:00.000Z",
-        end: "2024-02-04T23:59:59.999Z",
-      });
+      expect(mockChildren).toHaveBeenLastCalledWith(
+        {
+          start: "2024-01-29T00:00:00.000Z",
+          end: "2024-02-04T23:59:59.999Z",
+        },
+        "Week"
+      );
     });
   });
 
@@ -118,10 +127,13 @@ describe("<PeriodFilter />", () => {
         </PeriodFilter>
       );
 
-      expect(mockChildren).toHaveBeenLastCalledWith({
-        start: "2024-02-01T00:00:00.000Z",
-        end: "2024-02-29T23:59:59.999Z",
-      });
+      expect(mockChildren).toHaveBeenLastCalledWith(
+        {
+          start: "2024-02-01T00:00:00.000Z",
+          end: "2024-02-29T23:59:59.999Z",
+        },
+        "Month"
+      );
     });
 
     it("should give children the updated daterange when the last period button is pressed", async () => {
@@ -136,10 +148,13 @@ describe("<PeriodFilter />", () => {
       const user = userEvent.setup({ delay: null });
       await user.click(screen.getByLabelText("Last Month"));
 
-      expect(mockChildren).toHaveBeenLastCalledWith({
-        start: "2024-01-01T00:00:00.000Z",
-        end: "2024-01-31T23:59:59.999Z",
-      });
+      expect(mockChildren).toHaveBeenLastCalledWith(
+        {
+          start: "2024-01-01T00:00:00.000Z",
+          end: "2024-01-31T23:59:59.999Z",
+        },
+        "Month"
+      );
     });
 
     it("should give children the updated daterange when the next period button is pressed", async () => {
@@ -155,10 +170,13 @@ describe("<PeriodFilter />", () => {
       await user.click(screen.getByLabelText("Last Month"));
       await user.click(screen.getByLabelText("Next Month"));
 
-      expect(mockChildren).toHaveBeenLastCalledWith({
-        start: "2024-02-01T00:00:00.000Z",
-        end: "2024-02-29T23:59:59.999Z",
-      });
+      expect(mockChildren).toHaveBeenLastCalledWith(
+        {
+          start: "2024-02-01T00:00:00.000Z",
+          end: "2024-02-29T23:59:59.999Z",
+        },
+        "Month"
+      );
     });
   });
 });
