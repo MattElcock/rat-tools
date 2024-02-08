@@ -1,10 +1,9 @@
 "use client";
 
 import { useGetPetById } from "@/api/getPetById";
-import theme from "@/app/theme";
 import { CallToAction } from "@/components/CallToAction";
 import { Stat } from "@/components/Stat";
-import { Avatar, Box, Link, Spinner, Stack, Text } from "@chakra-ui/react";
+import { Box, Link, Spinner, Stack, Text } from "@chakra-ui/react";
 import NextLink from "next/link";
 import {
   IoCalendarOutline,
@@ -60,7 +59,7 @@ const PetProfile = ({ petId }: PetProfileProps) => {
           title="Date of Birth"
           value={longDateFormatter.format(new Date(data.dateOfBirth))}
         />
-        
+
         <Stat
           icon={<IoColorPaletteOutline />}
           title="Fur"
