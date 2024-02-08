@@ -35,7 +35,7 @@ const Graph = ({ petId, dateRange, currentPeriod }: GraphProps) => {
   ]);
 
   const options: ApexOptions = {
-    colors: [theme.colors.brand[800]],
+    colors: [theme.colors.primary],
     chart: {
       toolbar: {
         show: false,
@@ -78,7 +78,7 @@ const Graph = ({ petId, dateRange, currentPeriod }: GraphProps) => {
     },
     markers: {
       size: 5,
-      colors: theme.colors.brand[300],
+      colors: theme.colors.link,
     },
   };
 

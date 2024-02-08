@@ -21,18 +21,17 @@ interface CallToActionProps {
 
 const CallToAction = ({ icon, title, text, href }: CallToActionProps) => {
   return (
-    <Link as={NextLink} href={href}>
+    <Link as={NextLink} href={href} textDecoration="none">
       <Card
         direction="row"
         overflow="hidden"
         variant="elevated"
         borderRadius={10}
-        bg={theme.colors.brand[300]}
-        color="white"
+        bg={theme.colors.secondary}
       >
         <Box
           display="flex"
-          alignItems="top"
+          alignItems="center"
           justifyContent="center"
           mx={5}
           py={3}

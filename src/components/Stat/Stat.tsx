@@ -11,20 +11,18 @@ interface StatProps {
 
 const Stat = ({ icon, title, subtitle, value }: StatProps) => {
   return (
-    <Box display="flex" alignItems="top" gap={2}>
-      {React.cloneElement(icon, { size: "2.5em", color: "#09203F" })}
+    <Box display="flex" alignItems="center" gap={2}>
+      {React.cloneElement(icon, { size: "3em", color: "#09203F" })}
       <Box>
-        <Text fontWeight={600} color="GrayText" lineHeight={1} mb={0.5}>
+        <Text fontWeight={600} color="GrayText">
           {title}
         </Text>
+        <Text fontSize="lg">{value}</Text>
         {subtitle && (
-          <Text fontSize="sm" lineHeight={1} mb={1}>
+          <Text fontSize="xs" mb={1}>
             {subtitle}
           </Text>
         )}
-        <Text fontSize="lg" lineHeight={1}>
-          {value}
-        </Text>
       </Box>
     </Box>
   );

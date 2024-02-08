@@ -4,6 +4,7 @@ import { Providers } from "./providers";
 import Image from "next/image";
 import { Breadcrumbs } from "@/features/Breadcrumbs";
 import { Footer } from "@/components/Footer";
+import theme from "./theme";
 
 interface RootLayoutProps {
   children: React.ReactNode;
@@ -23,7 +24,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             }}
           >
             <header>
-              <Container bg="#09203F" color="white" py={3} px={8}>
+              <Container bg={theme.colors.primary} color="black" py={3} px={8}>
                 <Header />
               </Container>
             </header>
@@ -36,16 +37,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
               </Container>
             </Box>
             <footer>
-              <Container
-                py={3}
-                px={8}
-                bg="#09203F"
-                color="white"
-                position="relative"
-              >
-                <Box position="absolute" top={-65} zIndex={-1}>
-                  <Image src="/rats.png" alt={""} width={552} height={99} />
-                </Box>
+              <Container mb={-3} zIndex={-1} position="relative">
+                <Image src="/rats.png" alt={""} width={552} height={99} />
+              </Container>
+              <Container py={3} px={8} bg={theme.colors.primary} color="black">
                 <Footer />
               </Container>
             </footer>

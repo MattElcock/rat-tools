@@ -1,40 +1,33 @@
 import { extendTheme } from "@chakra-ui/react";
 
-const brandColours = {
-  50: "#e3f2ff",
-  100: "#b9d5f9",
-  200: "#8fb8f0",
-  300: "#639ce9",
-  400: "#3980e1",
-  500: "#2166c8",
-  600: "#16509c",
-  700: "#0d3970",
-  800: "#042246",
-  900: "#000b1c",
-};
+const primaryColour = "#cad8f9";
+const secondaryColour = "#a6a7f5";
+const linkColour = "#4A4BB0";
 
 const theme = extendTheme({
   colors: {
-    brand: brandColours,
+    primary: primaryColour,
+    secondary: secondaryColour,
+    link: linkColour,
   },
   components: {
     Link: {
       baseStyle: {
-        color: brandColours[300],
+        color: linkColour,
         textDecoration: "underline",
       },
     },
     Button: {
       variants: {
-        solid: { backgroundColor: brandColours[300], color: "white" },
-        link: { color: brandColours[300] },
-        outline: { borderColor: brandColours[300], color: brandColours[300] },
+        solid: { backgroundColor: linkColour, color: "white" },
+        link: { color: linkColour },
+        outline: { borderColor: linkColour, color: linkColour },
       },
     },
     Breadcrumb: {
       baseStyle: {
         link: {
-          color: brandColours[300],
+          color: linkColour,
           textDecoration: "underline",
         },
       },
