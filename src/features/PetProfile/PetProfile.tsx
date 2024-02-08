@@ -1,6 +1,7 @@
 "use client";
 
 import { useGetPetById } from "@/api/getPetById";
+import theme from "@/app/theme";
 import { CallToAction } from "@/components/CallToAction";
 import { Stat } from "@/components/Stat";
 import { Avatar, Box, Link, Spinner, Stack, Text } from "@chakra-ui/react";
@@ -42,22 +43,14 @@ const PetProfile = ({ petId }: PetProfileProps) => {
 
   return (
     <Stack spacing={7}>
-      <Box
-        display="grid"
-        gridTemplateColumns="auto 1fr"
-        gap={3}
-        alignItems="center"
-      >
-        <Avatar size="xl" />
-        <Box>
-          <Text fontSize="3xl" as="h2">
-            {data.name}
-          </Text>
-          <Box display="flex" gap={3}>
-            <Link as={NextLink} href={`/pets/${data.id}/edit`}>
-              Edit Profile
-            </Link>
-          </Box>
+      <Box>
+        <Text fontSize="4xl" as="h2">
+          {data.name}
+        </Text>
+        <Box display="flex" gap={3}>
+          <Link as={NextLink} href={`/pets/${data.id}/edit`}>
+            Edit Profile
+          </Link>
         </Box>
       </Box>
       <Box display="grid" gridTemplateColumns="1fr 1fr" gap={3}>
@@ -67,6 +60,12 @@ const PetProfile = ({ petId }: PetProfileProps) => {
           title="Date of Birth"
           value={longDateFormatter.format(new Date(data.dateOfBirth))}
         />
+        
+        <Stat
+          icon={<IoColorPaletteOutline />}
+          title="Fur"
+          value={data.fur.join(" / ")}
+        />
         <Stat
           icon={<IoScaleOutline />}
           title="Latest Weight"
@@ -74,11 +73,6 @@ const PetProfile = ({ petId }: PetProfileProps) => {
             new Date(data.latestWeight.dateTaken)
           )}
           value={`${data.latestWeight.value} grams`}
-        />
-        <Stat
-          icon={<IoColorPaletteOutline />}
-          title="Fur"
-          value={data.fur.join(" / ")}
         />
       </Box>
       <CallToAction

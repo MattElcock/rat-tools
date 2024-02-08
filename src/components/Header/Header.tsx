@@ -4,7 +4,7 @@ const Header = () => {
   return (
     <Box>
       <Text fontSize="xl" as="h1">
-        Rat Tools
+        My Mischief
       </Text>
     </Box>
   );

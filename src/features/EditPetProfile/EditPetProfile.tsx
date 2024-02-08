@@ -97,14 +97,8 @@ const EditPetProfile = ({ petId }: EditPetProfileProps) => {
                 />
               </Stack>
               <ButtonGroup flexDirection="column" gap={3}>
-                <Button colorScheme="teal" type="submit">
-                  Submit Form
-                </Button>
-                <Button
-                  colorScheme="teal"
-                  variant="link"
-                  onClick={handleCancel}
-                >
+                <Button type="submit">Submit Form</Button>
+                <Button variant="link" onClick={handleCancel}>
                   Cancel
                 </Button>
               </ButtonGroup>

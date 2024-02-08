@@ -14,6 +14,7 @@ const Footer = () => {
             href="https://www.freepik.com/free-vector/hand-drawn-rat-silhouette_49273747.htm"
             target="_blank"
             rel="noopener"
+            color="black"
           >
             Freepik
           </Link>

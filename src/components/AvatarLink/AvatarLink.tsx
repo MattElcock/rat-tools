@@ -1,3 +1,4 @@
+import theme from "@/app/theme";
 import {
   Avatar,
   Box,
@@ -15,11 +16,19 @@ interface AvatarLinkProps {
   icon?: ReactElement;
 }
 
-const AvatarLink = ({ href, text, icon }: AvatarLinkProps) => {
+const AvatarLink = ({ href, icon, text }: AvatarLinkProps) => {
   return (
     <Link href={href}>
       <Box display="flex" flexDirection="column" alignItems="center">
-        <Avatar icon={icon} size="xl" />
+        <Avatar
+          name={!icon ? text : undefined}
+          size="lg"
+          bg="transparrent"
+          color={theme.colors.link}
+          borderColor={theme.colors.link}
+          border="1px solid"
+          icon={icon}
+        />
         <Text fontSize="2xl">{text}</Text>
       </Box>
     </Link>
@@ -29,8 +38,8 @@ const AvatarLink = ({ href, text, icon }: AvatarLinkProps) => {
 const SkeletonAvatarLink = () => {
   return (
     <Stack spacing={2.5}>
-      <SkeletonCircle size="24" />
-      <SkeletonText noOfLines={1} skeletonHeight="5" />
+      <SkeletonCircle size="20" alignSelf="center" />
+      <SkeletonText noOfLines={1} skeletonHeight="4" />
     </Stack>
   );
 };

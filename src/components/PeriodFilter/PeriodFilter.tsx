@@ -126,7 +126,7 @@ const PeriodFilter = ({
   };
 
   return (
-    <Stack spacing={5}>
+    <Stack spacing={6}>
       <Box display="flex" justifyContent="center">
         <Stack spacing={3}>
           <Box width="inherit" display="flex" justifyContent="center">
@@ -138,13 +138,13 @@ const PeriodFilter = ({
                   variant={currentPeriod === period ? "solid" : "outline"}
                   aria-pressed={currentPeriod === period}
                   _active={{
-                    backgroundColor: theme.colors.brand[300],
+                    backgroundColor: theme.colors.link,
                     color: "white",
                   }}
                   _hover={
                     currentPeriod === period
                       ? {
-                          backgroundColor: theme.colors.brand[300],
+                          backgroundColor: theme.colors.link,
                           color: "white",
                         }
                       : undefined
