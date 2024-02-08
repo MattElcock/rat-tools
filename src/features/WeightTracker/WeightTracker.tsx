@@ -2,8 +2,7 @@
 
 import { HealthyWeightGuidance } from "@/components/HealthyWeightGuidance";
 import { DataPeriod, PeriodFilter } from "@/components/PeriodFilter";
-import { PageSection } from "@/layouts/PageSection";
-import { Box, Heading, Stack, Text } from "@chakra-ui/react";
+import { Heading, Stack, Text } from "@chakra-ui/react";
 import { DataTable } from "./components/DataTable";
 import { Graph } from "./components/Graph";
 

@@ -1,3 +1,4 @@
+import theme from "@/app/theme";
 import {
   Card,
   CardBody,
@@ -13,7 +14,7 @@ import { IoChevronDown, IoChevronUp } from "react-icons/io5";
 const HealthyWeightGuidance = () => {
   const { isOpen, onToggle } = useDisclosure({ defaultIsOpen: false });
   return (
-    <Card bg="gray.100">
+    <Card bg={theme.colors.secondary}>
       <CardHeader
         display="grid"
         gridTemplateColumns="1fr auto"
@@ -25,7 +26,7 @@ const HealthyWeightGuidance = () => {
         aria-expanded={isOpen}
         aria-controls="weight-guidance"
       >
-        <Heading size="sm" as="h6" fontWeight="normal">
+        <Heading size="sm" as="h6" fontWeight={500}>
           How do I know if my rat is a healthy weight?
         </Heading>
         {isOpen ? <IoChevronUp /> : <IoChevronDown />}
@@ -33,14 +34,17 @@ const HealthyWeightGuidance = () => {
       {isOpen && (
         <CardBody id="weight-guidance">
           <Stack>
-            <Text fontWeight={500}>
-              If you are concerned about your rats weight, speak to a vet.
+            <Text fontWeight="bold">
+              <strong>
+                If you are concerned about your rats weight, speak to a vet.
+              </strong>
             </Text>
             <Text>
               According to{" "}
               <Link
                 isExternal
                 href="https://www.bartelsbusackpethospital.com/articles/basic-rat-care"
+                color="black"
               >
                 Bartels Busack Pet Hospital&apos;s article on basic rat care
               </Link>
