@@ -5,6 +5,7 @@ import { DataPeriod, PeriodFilter } from "@/components/PeriodFilter";
 import { Heading, Stack, Text } from "@chakra-ui/react";
 import { DataTable } from "./components/DataTable";
 import { Graph } from "./components/Graph";
+import { Suspense } from "react";
 
 interface Props {
   petId: string;

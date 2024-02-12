@@ -1,6 +1,5 @@
 import { AddNewPet } from "@/features/AddNewPet";
-import { PageProps } from "@/types";
 
-export default function NewPet(props: PageProps) {
+export default function NewPet() {
   return <AddNewPet />;
 }

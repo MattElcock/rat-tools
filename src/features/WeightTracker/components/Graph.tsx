@@ -1,12 +1,13 @@
 "use client";
 
-import { useGetWeightsByPetId } from "@/api/getWeightsByPetId";
+import { useGetWeightsByPetId } from "@/api/root/getWeightsByPetId";
 import theme from "@/app/theme";
 import { DataPeriod, DateRange } from "@/components/PeriodFilter";
 import { Box, Heading, Text } from "@chakra-ui/react";
 import { ApexOptions } from "apexcharts";
 import moment from "moment";
 import dynamic from "next/dynamic";
+import { Suspense } from "react";
 import { IoAnalyticsOutline } from "react-icons/io5";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
@@ -33,15 +34,7 @@ const NotEnoughReadings = () => {
 };
 
 const Graph = ({ petId, dateRange, currentPeriod }: GraphProps) => {
-  const { data, isLoading } = useGetWeightsByPetId(
-    petId,
-    dateRange.start,
-    dateRange.end
-  );
-
-  if (isLoading) {
-    return <p>Loading</p>;
-  }
+  const { data } = useGetWeightsByPetId(petId, dateRange.start, dateRange.end);
 
   if (!data.weights || data.weights.length < 3) {
     return <NotEnoughReadings />;
@@ -118,4 +111,12 @@ const Graph = ({ petId, dateRange, currentPeriod }: GraphProps) => {
   );
 };
 
-export { Graph };
+const WrappedGraph = (props: GraphProps) => {
+  return (
+    <Suspense>
+      <Graph {...props} />
+    </Suspense>
+  );
+};
+
+export { WrappedGraph as Graph };

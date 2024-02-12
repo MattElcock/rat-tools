@@ -1,9 +1,8 @@
 "use client";
 
-import { useGetPetById } from "@/api/getPetById";
 import { CallToAction } from "@/components/CallToAction";
 import { Stat } from "@/components/Stat";
-import { Box, Link, Spinner, Stack, Text } from "@chakra-ui/react";
+import { Box, Link, Stack, Text } from "@chakra-ui/react";
 import NextLink from "next/link";
 import {
   IoCalendarOutline,
@@ -14,27 +13,10 @@ import {
 } from "react-icons/io5";
 
 interface PetProfileProps {
-  petId: string;
+  data: any;
 }
 
-const PetProfile = ({ petId }: PetProfileProps) => {
-  const { data, isLoading } = useGetPetById(petId);
-
-  if (isLoading) {
-    return (
-      <Box
-        display="flex"
-        alignItems="center"
-        flexDirection="column"
-        gap={5}
-        mt={10}
-      >
-        <Spinner size="xl" />
-        <Text>Loading profile...</Text>
-      </Box>
-    );
-  }
-
+const PetProfile = ({ data }: PetProfileProps) => {
   const longDateFormatter = new Intl.DateTimeFormat("en-GB", {
     dateStyle: "medium",
     timeStyle: undefined,
