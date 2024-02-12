@@ -2,6 +2,8 @@ import { getClient } from "@/api/client";
 import { PetMenu } from "@/features/PetMenu";
 import { gql } from "@apollo/client";
 
+export const dynamic = "force-dynamic";
+
 export default async function UserHomepage() {
   const query = gql(`
     query {
