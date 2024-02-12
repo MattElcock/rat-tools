@@ -59,7 +59,7 @@ const DataTable = ({ petId, dateRange, currentPeriod }: DataTableProps) => {
         </Thead>
         <Tbody>
           {data.weights.length > 0 &&
-            data.weights.map((weight: any) => (
+            data.weights.map((weight) => (
               <Tr key={weight.dateTaken}>
                 <RowHeading>
                   {moment(weight.dateTaken).format(getDayFormat())}
