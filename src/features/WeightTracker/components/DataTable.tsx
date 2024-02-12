@@ -1,4 +1,4 @@
-import { useGetWeightsByPetId } from "@/api/getWeightsByPetId";
+import { useGetWeightsByPetId } from "@/api/root/getWeightsByPetId";
 import { DataPeriod, DateRange } from "@/components/PeriodFilter";
 import {
   SkeletonText,
@@ -12,8 +12,10 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import moment from "moment";
+import React from "react";
+import { Suspense } from "react";
 
-interface Props {
+interface DataTableProps {
   petId: string;
   dateRange: DateRange;
   currentPeriod: DataPeriod;
@@ -27,12 +29,8 @@ const RowHeading = ({ children, ...rest }: TableCellProps) => {
   );
 };
 
-const DataTable = ({ petId, dateRange, currentPeriod }: Props) => {
-  const { data, isLoading } = useGetWeightsByPetId(
-    petId,
-    dateRange.start,
-    dateRange.end
-  );
+const DataTable = ({ petId, dateRange, currentPeriod }: DataTableProps) => {
+  const { data } = useGetWeightsByPetId(petId, dateRange.start, dateRange.end);
 
   const getDayFormat = () => {
     switch (currentPeriod) {
@@ -48,49 +46,6 @@ const DataTable = ({ petId, dateRange, currentPeriod }: Props) => {
     }
   };
 
-  if (isLoading) {
-    return (
-      <TableContainer>
-        <Table variant="striped">
-          <Thead>
-            <Tr>
-              <Th textTransform="capitalize">Day</Th>
-              <Th textTransform="capitalize" isNumeric>
-                Weight
-              </Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            <Tr>
-              <RowHeading>
-                <SkeletonText noOfLines={1} />
-              </RowHeading>
-              <Td isNumeric>
-                <SkeletonText noOfLines={1} />
-              </Td>
-            </Tr>
-            <Tr>
-              <RowHeading>
-                <SkeletonText noOfLines={1} />
-              </RowHeading>
-              <Td isNumeric>
-                <SkeletonText noOfLines={1} />
-              </Td>
-            </Tr>
-            <Tr>
-              <RowHeading>
-                <SkeletonText noOfLines={1} />
-              </RowHeading>
-              <Td isNumeric>
-                <SkeletonText noOfLines={1} />
-              </Td>
-            </Tr>
-          </Tbody>
-        </Table>
-      </TableContainer>
-    );
-  }
-
   return (
     <TableContainer>
       <Table variant="striped">
@@ -104,7 +59,7 @@ const DataTable = ({ petId, dateRange, currentPeriod }: Props) => {
         </Thead>
         <Tbody>
           {data.weights.length > 0 &&
-            data.weights.map((weight: any) => (
+            data.weights.map((weight) => (
               <Tr key={weight.dateTaken}>
                 <RowHeading>
                   {moment(weight.dateTaken).format(getDayFormat())}
@@ -123,4 +78,53 @@ const DataTable = ({ petId, dateRange, currentPeriod }: Props) => {
   );
 };
 
-export { DataTable };
+const WrappedDataTable = (props: DataTableProps) => {
+  return (
+    <Suspense
+      fallback={
+        <TableContainer>
+          <Table variant="striped">
+            <Thead>
+              <Tr>
+                <Th textTransform="capitalize">Day</Th>
+                <Th textTransform="capitalize" isNumeric>
+                  Weight
+                </Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              <Tr>
+                <RowHeading>
+                  <SkeletonText noOfLines={1} />
+                </RowHeading>
+                <Td isNumeric>
+                  <SkeletonText noOfLines={1} />
+                </Td>
+              </Tr>
+              <Tr>
+                <RowHeading>
+                  <SkeletonText noOfLines={1} />
+                </RowHeading>
+                <Td isNumeric>
+                  <SkeletonText noOfLines={1} />
+                </Td>
+              </Tr>
+              <Tr>
+                <RowHeading>
+                  <SkeletonText noOfLines={1} />
+                </RowHeading>
+                <Td isNumeric>
+                  <SkeletonText noOfLines={1} />
+                </Td>
+              </Tr>
+            </Tbody>
+          </Table>
+        </TableContainer>
+      }
+    >
+      <DataTable {...props} />
+    </Suspense>
+  );
+};
+
+export { WrappedDataTable as DataTable };
