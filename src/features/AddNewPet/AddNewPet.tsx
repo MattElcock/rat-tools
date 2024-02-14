@@ -1,5 +1,10 @@
 "use client";
 
+import { useCreatePet } from "@/api/root/createPet";
+import { Fur } from "@/app/api/graphql/schema/enums/Fur";
+import { Metric } from "@/app/api/graphql/schema/enums/Metric";
+import { Sex } from "@/app/api/graphql/schema/enums/Sex";
+import { Species } from "@/app/api/graphql/schema/enums/Species";
 import { CheckboxField } from "@/components/CheckboxField";
 import { Form } from "@/components/Form";
 import { RadioField } from "@/components/RadioField";
@@ -37,9 +42,23 @@ const schema = yup.object({
 
 const AddNewPet = () => {
   const router = useRouter();
+  const { execute, loading } = useCreatePet({
+    onSuccess: () => {
+      router.push("/pets");
+    },
+  });
 
   const handleSubmit = (data: FieldValues) => {
-    console.log(data);
+    execute({
+      name: data.name,
+      dateOfBirth: data.dateOfBirth,
+      fur: data.fur as Fur[],
+      sex: data.sex as Sex,
+      species: Species.Rat,
+      weightDateTaken: data.dateTaken,
+      weightValue: data.reading,
+      weightMetric: Metric.Grams,
+    });
   };
 
   const handleCancel = () => {
@@ -118,7 +137,9 @@ const AddNewPet = () => {
                 />
               </Stack>
               <ButtonGroup flexDirection="column" gap={3}>
-                <Button type="submit">Submit Form</Button>
+                <Button type="submit" isLoading={loading}>
+                  Submit Form
+                </Button>
                 <Button variant="link" onClick={handleCancel}>
                   Cancel
                 </Button>

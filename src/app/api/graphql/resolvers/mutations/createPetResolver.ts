@@ -6,7 +6,7 @@ import { Pet } from "../../schema/objects/Pet";
 import { Weight } from "../../schema/objects/Weight";
 import { v4 } from "uuid";
 
-type resolverArgs = {
+export type createPetResolverArgs = {
   name: string;
   species: Species;
   sex: Sex;
@@ -17,7 +17,7 @@ type resolverArgs = {
   weightMetric: Metric;
 };
 
-const createPetResolver = (_parent: any, args: resolverArgs) => {
+const createPetResolver = (_parent: any, args: createPetResolverArgs) => {
   const weight = new Weight(
     args.weightMetric,
     args.weightValue,
@@ -25,8 +25,7 @@ const createPetResolver = (_parent: any, args: resolverArgs) => {
   );
 
   const uuid = v4();
-
-  return new Pet(
+  const CreatedPet = new Pet(
     uuid,
     args.species,
     args.name,
@@ -35,6 +34,8 @@ const createPetResolver = (_parent: any, args: resolverArgs) => {
     args.fur,
     [weight]
   );
+
+  return CreatedPet;
 };
 
 export default createPetResolver;
