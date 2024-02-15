@@ -1,4 +1,4 @@
-import { createPetResolverArgs } from "@/app/api/graphql/resolvers/mutations/createPetResolver";
+import { CreatePetResolverArgs } from "@/app/api/graphql/resolvers/mutations/createPetResolver";
 import { gql, useMutation } from "@apollo/client";
 
 const mutation = gql`
@@ -34,7 +34,7 @@ interface UseCreatePet {
 const useCreatePet = ({ onSuccess }: UseCreatePet) => {
   const [mutateFunction, mutationResult] = useMutation(mutation);
 
-  const execute = async (data: createPetResolverArgs) => {
+  const execute = async (data: CreatePetResolverArgs) => {
     const result = await mutateFunction({
       variables: {
         name: data.name,

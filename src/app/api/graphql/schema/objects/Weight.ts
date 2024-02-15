@@ -2,14 +2,24 @@ import { builder } from "../builder";
 import { Metric } from "../enums/Metric";
 
 export class Weight {
+  id: string;
+  petId: string;
   metric: Metric;
   value: number;
   dateTaken: string;
 
-  constructor(metric: Metric, value: number, dateTaken: string) {
+  constructor(
+    id: string,
+    petId: string,
+    metric: Metric,
+    value: number,
+    dateTaken: string
+  ) {
+    this.id = id;
+    this.petId = petId;
     this.metric = metric;
     this.value = value;
-    this.dateTaken = dateTaken;
+    this.dateTaken = new Date(dateTaken).toISOString();
   }
 }
 

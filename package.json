@@ -3,12 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "yarn migrate && next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "yarn migrate && next start",
     "lint": "next lint",
     "test": "jest",
-    "postinstall": "husky install"
+    "postinstall": "husky install",
+    "migrate": "yarn knex migrate:latest --env development"
   },
   "dependencies": {
     "@apollo/client": "3.9.0-rc.1",

@@ -10,7 +10,7 @@ interface PetMenuProps {
 }
 
 const PetMenu = ({ data }: PetMenuProps) => {
-  const pets: any = data[0].pets;
+  const pets: any = data.flatMap((group) => group.pets);
 
   return (
     <PageSection title="Your Mischief">

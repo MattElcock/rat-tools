@@ -61,6 +61,7 @@ builder.mutationType({
     createWeight: t.field({
       type: Weight,
       args: {
+        petId: t.arg.string({ required: true }),
         value: t.arg.int({ required: true }),
         dateTaken: t.arg.string({ required: true }),
         metric: t.arg({ type: Metric, required: true }),
