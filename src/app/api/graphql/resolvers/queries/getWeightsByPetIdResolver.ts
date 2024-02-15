@@ -12,9 +12,16 @@ const getWeightsByPetIdResolver = async (
   args: ResolverArgs
 ): Promise<Weight[]> => {
   try {
-    const weightsFromDb = await pg("weights")
-      .select("*")
-      .where({ pet_id: args.petId });
+    let query = pg("weights").select("*").where({ pet_id: args.petId });
+
+    if (args.from) {
+      query = query.where("date_taken", ">=", args.from);
+    }
+    if (args.to) {
+      query = query.where("date_taken", "<=", args.to);
+    }
+
+    const weightsFromDb = await query;
 
     const weights: Weight[] = weightsFromDb.map((weight: any) => {
       return new Weight(
