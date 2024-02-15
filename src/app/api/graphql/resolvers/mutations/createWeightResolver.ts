@@ -1,14 +1,41 @@
+import { v4 } from "uuid";
 import { Metric } from "../../schema/enums/Metric";
 import { Weight } from "../../schema/objects/Weight";
+import pg from "../../../../../../db/client";
 
-type resolverArgs = {
+type ResolverArgs = {
+  petId: string;
   value: number;
   dateTaken: string;
   metric: Metric;
 };
 
-const createWeightResolver = (_parent: any, args: resolverArgs) => {
-  return new Weight(args.metric, args.value, args.dateTaken);
+const createWeightResolver = async (_parent: any, args: ResolverArgs) => {
+  try {
+    const weightId = v4();
+
+    const createdWeight = new Weight(
+      weightId,
+      args.petId,
+      args.metric,
+      args.value,
+      args.dateTaken
+    );
+
+    await pg("weights").insert({
+      id: createdWeight.id,
+      pet_id: createdWeight.petId,
+      date_taken: createdWeight.dateTaken,
+      value: createdWeight.value,
+      metric: createdWeight.metric,
+    });
+
+    return createdWeight;
+  } catch (error) {
+    // Handle errors appropriately
+    console.error("Error in createWeightResolver:", error);
+    throw error;
+  }
 };
 
 export default createWeightResolver;

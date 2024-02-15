@@ -12,11 +12,6 @@ export default async function UserHomepage() {
         pets {
           id
           name
-          latestWeight {
-            value
-            dateTaken
-            metric
-          }
         }
       }
     }

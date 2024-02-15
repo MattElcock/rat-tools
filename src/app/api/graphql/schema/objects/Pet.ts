@@ -6,6 +6,7 @@ import { Weight } from "./Weight";
 
 export class Pet {
   id: string;
+  groupId: string;
   species: Species;
   name: string;
   dateOfBirth: string;
@@ -15,6 +16,7 @@ export class Pet {
 
   constructor(
     id: string,
+    groupId: string,
     species: Species,
     name: string,
     dateOfBirth: string,
@@ -23,9 +25,10 @@ export class Pet {
     weights: Weight[]
   ) {
     this.id = id;
+    this.groupId = groupId;
     this.species = species;
     this.name = name;
-    this.dateOfBirth = dateOfBirth;
+    this.dateOfBirth = new Date(dateOfBirth).toISOString();
     this.sex = sex;
     this.fur = fur;
     this.weights = weights;

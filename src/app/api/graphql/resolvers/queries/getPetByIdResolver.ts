@@ -1,37 +1,40 @@
-import mockData from "../../mocks/group.json";
-import { Fur } from "../../schema/enums/Fur";
-import { Metric } from "../../schema/enums/Metric";
-import { Sex } from "../../schema/enums/Sex";
-import { Species } from "../../schema/enums/Species";
+import pg from "../../../../../../db/client";
 import { Pet } from "../../schema/objects/Pet";
-import { Weight } from "../../schema/objects/Weight";
+import getWeightsByPetIdResolver from "./getWeightsByPetIdResolver";
 
-type resolverArgs = {
+type ResolverArgs = {
   id: string;
 };
 
-const getPetByIdResolver = (_parent: any, args: resolverArgs) => {
-  const json = mockData;
-  const data = json[0].pets.find((pet) => pet.id === args.id);
+const getPetByIdResolver = async (
+  _parent: any,
+  args: ResolverArgs
+): Promise<Pet> => {
+  try {
+    const petFromDb = await pg("pets")
+      .select("*")
+      .where({ id: args.id })
+      .first();
 
-  if (!data) {
-    throw new Error();
+    const weights = await getWeightsByPetIdResolver(null, { petId: args.id });
+
+    const pet = new Pet(
+      petFromDb.id,
+      petFromDb.group_id,
+      petFromDb.species,
+      petFromDb.name,
+      petFromDb.date_of_birth,
+      petFromDb.sex,
+      petFromDb.fur,
+      weights
+    );
+
+    return pet;
+  } catch (error) {
+    // Handle errors appropriately
+    console.error("Error in getPetByIdResolver:", error);
+    throw error;
   }
-
-  const weights = data.weights.map(
-    (weight) =>
-      new Weight(weight.metric as Metric, weight.value, weight.dateTaken)
-  );
-
-  return new Pet(
-    data.id,
-    Species.Rat,
-    data.name,
-    data.dateOfBirth,
-    data.sex as Sex,
-    data.fur as Fur[],
-    weights
-  );
 };
 
 export default getPetByIdResolver;

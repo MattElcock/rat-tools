@@ -7,9 +7,10 @@ async function up(knex) {
       table.uuid("id", { primaryKey: true }).notNullable();
       table.uuid("group_id").references("id").inTable("groups").notNullable();
       table.string("name").notNullable();
+      table.string("sex").notNullable();
       table.date("date_of_birth").notNullable();
       table.specificType("fur", "TEXT[]").notNullable();
-      table.specificType("species", "TEXT[]").notNullable();
+      table.specificType("species", "TEXT").notNullable();
     })
     .createTable("weights", function (table) {
       table.uuid("id", { primaryKey: true }).notNullable();

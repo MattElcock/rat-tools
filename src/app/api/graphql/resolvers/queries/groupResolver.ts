@@ -1,37 +1,47 @@
-import mockData from "../../mocks/group.json";
-import { Fur } from "../../schema/enums/Fur";
-import { Metric } from "../../schema/enums/Metric";
-import { Sex } from "../../schema/enums/Sex";
-import { Species } from "../../schema/enums/Species";
+import pg from "../../../../../../db/client";
 import { Group } from "../../schema/objects/Group";
 import { Pet } from "../../schema/objects/Pet";
-import { Weight } from "../../schema/objects/Weight";
+import getWeightsByPetIdResolver from "./getWeightsByPetIdResolver";
 
-const groupResolver = (_parent: any, _args: any) => {
-  const json = mockData;
+const groupResolver = async (_parent: any, _args: any) => {
+  try {
+    const groupsFromDb = await pg("groups").select("*");
 
-  const group = json.map((item) => {
-    const pets = item.pets.map((pet) => {
-      const weights = pet.weights.map(
-        (weight) =>
-          new Weight(weight.metric as Metric, weight.value, weight.dateTaken)
-      );
+    const groups: Group[] = await Promise.all(
+      groupsFromDb.map(async (group: any) => {
+        const petsFromDb = await pg("pets")
+          .select("*")
+          .where({ group_id: group.id });
 
-      return new Pet(
-        pet.id,
-        Species.Rat,
-        pet.name,
-        pet.dateOfBirth,
-        pet.sex as Sex,
-        pet.fur as Fur[],
-        weights
-      );
-    });
+        const pets: Pet[] = await Promise.all(
+          petsFromDb.map(async (petDb: any): Promise<Pet> => {
+            const weights = await getWeightsByPetIdResolver(null, {
+              petId: petDb.id,
+            });
 
-    return new Group(item.id, pets);
-  });
+            return new Pet(
+              petDb.id,
+              petDb.group_id,
+              petDb.species,
+              petDb.name,
+              petDb.date_of_birth,
+              petDb.sex,
+              petDb.fur,
+              weights
+            );
+          })
+        );
 
-  return group;
+        return new Group(group.id, pets);
+      })
+    );
+
+    return groups;
+  } catch (error) {
+    // Handle errors appropriately
+    console.error("Error in groupResolver:", error);
+    throw error;
+  }
 };
 
 export default groupResolver;

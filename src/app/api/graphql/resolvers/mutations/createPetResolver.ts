@@ -1,12 +1,16 @@
+import { v4 } from "uuid";
+import pg from "../../../../../../db/client";
 import { Fur } from "../../schema/enums/Fur";
 import { Metric } from "../../schema/enums/Metric";
 import { Sex } from "../../schema/enums/Sex";
 import { Species } from "../../schema/enums/Species";
 import { Pet } from "../../schema/objects/Pet";
 import { Weight } from "../../schema/objects/Weight";
-import { v4 } from "uuid";
+import createGroupResolver from "./createGroupResolver";
+import createWeightResolver from "./createWeightResolver";
+import groupResolver from "../queries/groupResolver";
 
-export type createPetResolverArgs = {
+export type CreatePetResolverArgs = {
   name: string;
   species: Species;
   sex: Sex;
@@ -17,25 +21,60 @@ export type createPetResolverArgs = {
   weightMetric: Metric;
 };
 
-const createPetResolver = (_parent: any, args: createPetResolverArgs) => {
-  const weight = new Weight(
-    args.weightMetric,
-    args.weightValue,
-    args.weightDateTaken
-  );
+const createPetResolver = async (
+  _parent: any,
+  args: CreatePetResolverArgs
+): Promise<Pet> => {
+  try {
+    const weightId = v4();
+    const petId = v4();
+    const group = await groupResolver(null, null);
 
-  const uuid = v4();
-  const CreatedPet = new Pet(
-    uuid,
-    args.species,
-    args.name,
-    args.dateOfBirth,
-    args.sex,
-    args.fur,
-    [weight]
-  );
+    let groupId;
+    if (!group || group.length === 0) {
+      const { id } = await createGroupResolver();
+      groupId = id;
+    } else {
+      groupId = group[0].id;
+    }
 
-  return CreatedPet;
+    const createdWeight = new Weight(
+      weightId,
+      petId,
+      args.weightMetric,
+      args.weightValue,
+      args.weightDateTaken
+    );
+
+    const createdPet = new Pet(
+      petId,
+      groupId,
+      args.species,
+      args.name,
+      args.dateOfBirth,
+      args.sex,
+      args.fur,
+      [createdWeight]
+    );
+
+    await pg("pets").insert({
+      id: createdPet.id,
+      group_id: createdPet.groupId,
+      name: createdPet.name,
+      sex: createdPet.sex,
+      date_of_birth: createdPet.dateOfBirth,
+      fur: createdPet.fur,
+      species: createdPet.species,
+    });
+
+    await createWeightResolver(null, createdWeight);
+
+    return createdPet;
+  } catch (error) {
+    // Handle errors appropriately
+    console.error("Error in createPetResolver:", error);
+    throw error;
+  }
 };
 
 export default createPetResolver;
