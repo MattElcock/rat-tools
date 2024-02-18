@@ -74,11 +74,13 @@ const Breadcrumbs = () => {
         You are here:
       </Text>
       <Breadcrumb spacing={1} separator={<IoArrowForwardOutline />}>
-        {pathAsArray.map((item, i) => (
-          <BreadcrumbItem key={item}>
-            {buildBreadcrumbItem(pathAsArray, i)}
-          </BreadcrumbItem>
-        ))}
+        {pathAsArray
+          .map((item, i) => (
+            <BreadcrumbItem key={item}>
+              {buildBreadcrumbItem(pathAsArray, i)}
+            </BreadcrumbItem>
+          ))
+          .slice(-3)}
       </Breadcrumb>
     </Box>
   );

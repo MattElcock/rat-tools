@@ -1,0 +1,1 @@
+export { AddNewWeight } from "./AddNewWeight";

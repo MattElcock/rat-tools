@@ -3,14 +3,17 @@ import { Metric } from "../../schema/enums/Metric";
 import { Weight } from "../../schema/objects/Weight";
 import pg from "../../../../../../db/client";
 
-type ResolverArgs = {
+export type CreateWeightResolverArgs = {
   petId: string;
   value: number;
   dateTaken: string;
   metric: Metric;
 };
 
-const createWeightResolver = async (_parent: any, args: ResolverArgs) => {
+const createWeightResolver = async (
+  _parent: any,
+  args: CreateWeightResolverArgs
+) => {
   try {
     const weightId = v4();
 
