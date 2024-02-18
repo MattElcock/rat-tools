@@ -1,3 +1,4 @@
+import getWeightsByPetIdResolver from "../../resolvers/queries/getWeightsByPetIdResolver";
 import { builder } from "../builder";
 import { Fur } from "../enums/Fur";
 import { Sex } from "../enums/Sex";
@@ -12,7 +13,6 @@ export class Pet {
   dateOfBirth: string;
   sex: Sex;
   fur: Fur[];
-  weights: Weight[];
 
   constructor(
     id: string,
@@ -21,8 +21,7 @@ export class Pet {
     name: string,
     dateOfBirth: string,
     sex: Sex,
-    fur: Fur[],
-    weights: Weight[]
+    fur: Fur[]
   ) {
     this.id = id;
     this.groupId = groupId;
@@ -31,7 +30,6 @@ export class Pet {
     this.dateOfBirth = new Date(dateOfBirth).toISOString();
     this.sex = sex;
     this.fur = fur;
-    this.weights = weights;
   }
 }
 
@@ -47,8 +45,10 @@ builder.objectType(Pet, {
     fur: t.field({ type: [Fur], resolve: (parent) => parent.fur }),
     latestWeight: t.field({
       type: Weight,
-      resolve: (parent) => {
-        const weights = parent.weights;
+      resolve: async (parent) => {
+        const weights = await getWeightsByPetIdResolver(parent, {
+          petId: parent.id,
+        });
         weights.sort(
           (a, b) =>
             new Date(b.dateTaken).getTime() - new Date(a.dateTaken).getTime()
@@ -58,7 +58,8 @@ builder.objectType(Pet, {
     }),
     weights: t.field({
       type: [Weight],
-      resolve: (parent) => parent.weights,
+      resolve: async (parent) =>
+        await getWeightsByPetIdResolver(parent, { petId: parent.id }),
     }),
   }),
 });

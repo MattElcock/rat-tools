@@ -28,7 +28,7 @@ const createPetResolver = async (
   try {
     const weightId = v4();
     const petId = v4();
-    const group = await groupResolver(null, null);
+    const group = await groupResolver();
 
     let groupId;
     if (!group || group.length === 0) {
@@ -53,8 +53,7 @@ const createPetResolver = async (
       args.name,
       args.dateOfBirth,
       args.sex,
-      args.fur,
-      [createdWeight]
+      args.fur
     );
 
     await pg("pets").insert({

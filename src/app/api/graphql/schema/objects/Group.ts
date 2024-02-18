@@ -1,13 +1,12 @@
 import { Pet } from "./Pet";
 import { builder } from "../builder";
+import getPetsByGroupIdResolver from "../../resolvers/queries/getPetsByGroupId";
 
 export class Group {
   id: string;
-  pets: Pet[];
 
-  constructor(id: string, pets: Pet[]) {
+  constructor(id: string) {
     this.id = id;
-    this.pets = pets;
   }
 }
 
@@ -18,7 +17,8 @@ builder.objectType(Group, {
     id: t.exposeID("id"),
     pets: t.field({
       type: [Pet],
-      resolve: (parent) => parent.pets,
+      resolve: async (parent) =>
+        await getPetsByGroupIdResolver(parent, { id: parent.id }),
     }),
   }),
 });
