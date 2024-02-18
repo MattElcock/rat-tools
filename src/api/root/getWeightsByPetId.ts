@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
 
 const query = gql`
-  query ($id: String!, $from: String, $to: String) {
+  query GetWeightsByPetId($id: String!, $from: String, $to: String) {
     getPetById(id: $id) {
       name
     }

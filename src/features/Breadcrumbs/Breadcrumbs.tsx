@@ -42,7 +42,10 @@ const Breadcrumbs = () => {
   const pathAsArray = pathname.split("/").filter(Boolean);
 
   const buildBreadcrumbItem = (path: string[], breadcrumbIndex: number) => {
-    if (pathAsArray[breadcrumbIndex - 1] === "pets") {
+    if (
+      pathAsArray[breadcrumbIndex - 1] === "pets" &&
+      pathAsArray[breadcrumbIndex] !== "new-pet"
+    ) {
       return (
         <PetNameBreadcrumb
           link={
@@ -74,11 +77,13 @@ const Breadcrumbs = () => {
         You are here:
       </Text>
       <Breadcrumb spacing={1} separator={<IoArrowForwardOutline />}>
-        {pathAsArray.map((item, i) => (
-          <BreadcrumbItem key={item}>
-            {buildBreadcrumbItem(pathAsArray, i)}
-          </BreadcrumbItem>
-        ))}
+        {pathAsArray
+          .map((item, i) => (
+            <BreadcrumbItem key={item}>
+              {buildBreadcrumbItem(pathAsArray, i)}
+            </BreadcrumbItem>
+          ))
+          .slice(-3)}
       </Breadcrumb>
     </Box>
   );
