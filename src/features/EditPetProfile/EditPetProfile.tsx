@@ -1,5 +1,6 @@
 "use client";
 
+import { useGetPetById } from "@/api/root/getPetById";
 import { useUpdatePet } from "@/api/root/updatePet";
 import { Fur } from "@/app/api/graphql/schema/enums/Fur";
 import { Sex } from "@/app/api/graphql/schema/enums/Sex";
@@ -15,7 +16,7 @@ import { useParams, useRouter } from "next/navigation";
 import * as yup from "yup";
 
 interface EditPetProfileProps {
-  data: any;
+  petId: string;
 }
 
 interface FieldValues {
@@ -35,18 +36,19 @@ const schema = yup.object({
     .required(requiredErrorMessage),
 });
 
-const EditPetProfile = ({ data }: EditPetProfileProps) => {
+const EditPetProfile = ({ petId }: EditPetProfileProps) => {
+  const { data } = useGetPetById(petId);
+
   const router = useRouter();
-  const { petId } = useParams();
   const { execute, loading } = useUpdatePet({
-    onSuccess: (id) => {
-      router.push(`/pets/${id}`);
+    onSuccess: () => {
+      router.push(`/pets/${petId}`);
     },
   });
 
   const handleSubmit = (data: FieldValues) => {
     execute({
-      id: petId as string,
+      id: petId,
       name: data.name,
       sex: data.sex as Sex,
       dateOfBirth: data.dateOfBirth,
@@ -55,7 +57,7 @@ const EditPetProfile = ({ data }: EditPetProfileProps) => {
   };
 
   const handleCancel = () => {
-    router.push(`/pets/${data.id}`);
+    router.push(`/pets/${petId}`);
   };
 
   return (

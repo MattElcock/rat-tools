@@ -1,5 +1,6 @@
 "use client";
 
+import { useGetPetById } from "@/api/root/getPetById";
 import { CallToAction } from "@/components/CallToAction";
 import { Stat } from "@/components/Stat";
 import { Box, Link, Stack, Text } from "@chakra-ui/react";
@@ -13,10 +14,12 @@ import {
 } from "react-icons/io5";
 
 interface PetProfileProps {
-  data: any;
+  petId: string;
 }
 
-const PetProfile = ({ data }: PetProfileProps) => {
+const PetProfile = ({ petId }: PetProfileProps) => {
+  const { data } = useGetPetById(petId);
+
   const longDateFormatter = new Intl.DateTimeFormat("en-GB", {
     dateStyle: "medium",
     timeStyle: undefined,
@@ -41,7 +44,6 @@ const PetProfile = ({ data }: PetProfileProps) => {
           title="Date of Birth"
           value={longDateFormatter.format(new Date(data.dateOfBirth))}
         />
-
         <Stat
           icon={<IoColorPaletteOutline />}
           title="Fur"

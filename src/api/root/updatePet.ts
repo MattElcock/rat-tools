@@ -37,6 +37,7 @@ const useUpdatePet = ({ onSuccess }: UseUpdatePet) => {
         fur: data.fur,
         sex: data.sex,
       },
+      refetchQueries: ["GetPetById"],
     });
 
     if (result.data.updatePet.id) {
