@@ -7,7 +7,7 @@ const createGroupResolver = async () => {
 
   await pg("groups").insert({ id: uuid });
 
-  return new Group(uuid, []);
+  return new Group(uuid);
 };
 
 export default createGroupResolver;

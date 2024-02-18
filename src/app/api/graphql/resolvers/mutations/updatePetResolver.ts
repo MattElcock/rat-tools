@@ -33,8 +33,7 @@ const updatePetResolver = async (
       updatedPet[0].name,
       updatedPet[0].date_of_birth,
       updatedPet[0].sex,
-      updatedPet[0].fur,
-      []
+      updatedPet[0].fur
     );
   } catch (error) {
     // Handle errors appropriately

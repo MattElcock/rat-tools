@@ -1,6 +1,5 @@
 import pg from "../../../../../../db/client";
 import { Pet } from "../../schema/objects/Pet";
-import getWeightsByPetIdResolver from "./getWeightsByPetIdResolver";
 
 type ResolverArgs = {
   id: string;
@@ -16,8 +15,6 @@ const getPetByIdResolver = async (
       .where({ id: args.id })
       .first();
 
-    const weights = await getWeightsByPetIdResolver(null, { petId: args.id });
-
     const pet = new Pet(
       petFromDb.id,
       petFromDb.group_id,
@@ -25,8 +22,7 @@ const getPetByIdResolver = async (
       petFromDb.name,
       petFromDb.date_of_birth,
       petFromDb.sex,
-      petFromDb.fur,
-      weights
+      petFromDb.fur
     );
 
     return pet;
