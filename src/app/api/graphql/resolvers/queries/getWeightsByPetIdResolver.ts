@@ -21,7 +21,7 @@ const getWeightsByPetIdResolver = async (
       query = query.where("date_taken", "<=", args.to);
     }
 
-    const weightsFromDb = await query;
+    const weightsFromDb = await query.orderBy("date_taken", "desc");
 
     const weights: Weight[] = weightsFromDb.map((weight: any) => {
       return new Weight(
