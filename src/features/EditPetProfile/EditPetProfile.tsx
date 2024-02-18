@@ -1,5 +1,8 @@
 "use client";
 
+import { useUpdatePet } from "@/api/root/updatePet";
+import { Fur } from "@/app/api/graphql/schema/enums/Fur";
+import { Sex } from "@/app/api/graphql/schema/enums/Sex";
 import { CheckboxField } from "@/components/CheckboxField";
 import { Form } from "@/components/Form";
 import { RadioField } from "@/components/RadioField";
@@ -8,7 +11,7 @@ import { requiredErrorMessage } from "@/constants/copy";
 import { PageSection } from "@/layouts/PageSection";
 import { Button, ButtonGroup, Stack } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import * as yup from "yup";
 
 interface EditPetProfileProps {
@@ -34,9 +37,21 @@ const schema = yup.object({
 
 const EditPetProfile = ({ data }: EditPetProfileProps) => {
   const router = useRouter();
+  const { petId } = useParams();
+  const { execute, loading } = useUpdatePet({
+    onSuccess: (id) => {
+      router.push(`/pets/${id}`);
+    },
+  });
 
   const handleSubmit = (data: FieldValues) => {
-    console.log(data);
+    execute({
+      id: petId as string,
+      name: data.name,
+      sex: data.sex as Sex,
+      dateOfBirth: data.dateOfBirth,
+      fur: data.fur as Fur[],
+    });
   };
 
   const handleCancel = () => {
@@ -95,7 +110,9 @@ const EditPetProfile = ({ data }: EditPetProfileProps) => {
                 />
               </Stack>
               <ButtonGroup flexDirection="column" gap={3}>
-                <Button type="submit">Submit Form</Button>
+                <Button type="submit" isLoading={loading}>
+                  Submit Form
+                </Button>
                 <Button variant="link" onClick={handleCancel}>
                   Cancel
                 </Button>
