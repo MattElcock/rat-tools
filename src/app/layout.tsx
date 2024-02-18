@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Breadcrumbs } from "@/features/Breadcrumbs";
 import { Footer } from "@/components/Footer";
 import theme from "./theme";
+import { Suspense } from "react";
 
 interface RootLayoutProps {
   children: React.ReactNode;
@@ -31,7 +32,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <Box as="main" mb={65} pb={5}>
               <Container py={3} px={8}>
                 <Stack spacing={3}>
-                  <Breadcrumbs />
+                  <Suspense>
+                    <Breadcrumbs />
+                  </Suspense>
                   {children}
                 </Stack>
               </Container>
