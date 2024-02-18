@@ -1,16 +1,13 @@
 "use client";
 
+import { useListPets } from "@/api/root/listPets";
 import { AvatarLink } from "@/components/AvatarLink";
 import { PageSection } from "@/layouts/PageSection";
 import { Box } from "@chakra-ui/react";
 import { IoAdd } from "react-icons/io5";
 
-interface PetMenuProps {
-  data: any[];
-}
-
-const PetMenu = ({ data }: PetMenuProps) => {
-  const pets: any = data.flatMap((group) => group.pets);
+const PetMenu = () => {
+  const { data } = useListPets();
 
   return (
     <PageSection title="Your Mischief">
@@ -20,8 +17,8 @@ const PetMenu = ({ data }: PetMenuProps) => {
         columnGap={2}
         rowGap={5}
       >
-        {pets?.length > 0 &&
-          pets.map((pet: any) => (
+        {data.length > 0 &&
+          data.map((pet) => (
             <AvatarLink key={pet.id} href={`/pets/${pet.id}`} text={pet.name} />
           ))}
         <AvatarLink href="/pets/new-pet" text="Add a Rat" icon={<IoAdd />} />

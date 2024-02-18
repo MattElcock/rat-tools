@@ -46,6 +46,7 @@ const useCreatePet = ({ onSuccess }: UseCreatePet) => {
         weightValue: data.weightValue,
         weightMetric: "Grams",
       },
+      refetchQueries: ["ListPets"],
     });
 
     if (result.data.createPet.id) {
