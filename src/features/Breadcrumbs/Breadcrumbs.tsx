@@ -42,7 +42,10 @@ const Breadcrumbs = () => {
   const pathAsArray = pathname.split("/").filter(Boolean);
 
   const buildBreadcrumbItem = (path: string[], breadcrumbIndex: number) => {
-    if (pathAsArray[breadcrumbIndex - 1] === "pets") {
+    if (
+      pathAsArray[breadcrumbIndex - 1] === "pets" &&
+      pathAsArray[breadcrumbIndex] !== "new-pet"
+    ) {
       return (
         <PetNameBreadcrumb
           link={
