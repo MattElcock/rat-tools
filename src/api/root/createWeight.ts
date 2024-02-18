@@ -37,8 +37,6 @@ const useCreateWeight = ({ onSuccess }: UseCreateWeight) => {
       refetchQueries: ["GetWeightsByPetId", "GetPetById"],
     });
 
-    console.log(result);
-
     if (result.data.createWeight.value) {
       onSuccess();
     }
