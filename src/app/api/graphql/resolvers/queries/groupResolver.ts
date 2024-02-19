@@ -6,7 +6,7 @@ const groupResolver = async () => {
     const groupsFromDb = await pg("groups").select("*");
 
     const groups: Group[] = groupsFromDb.map(
-      async (group: any) => new Group(group.id)
+      (group: any) => new Group(group.id)
     );
 
     return groups;
