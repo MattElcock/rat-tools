@@ -106,6 +106,7 @@ const AddNewPet = () => {
                     label="Reading"
                     labelProps={{ fontWeight: 400 }}
                     inputProps={{
+                      type: "number",
                       "aria-describedby": "latestWeight",
                     }}
                     rightAddon="grams"

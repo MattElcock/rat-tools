@@ -64,6 +64,7 @@ const AddNewWeight = ({ petId }: AddNewWeightProps) => {
                   labelProps={{ fontWeight: 400 }}
                   inputProps={{
                     "aria-describedby": "latestWeight",
+                    type: "number",
                   }}
                   rightAddon="grams"
                   error={formState.errors.reading}
