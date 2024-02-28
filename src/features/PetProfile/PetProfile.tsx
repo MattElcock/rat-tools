@@ -37,7 +37,12 @@ const PetProfile = ({ petId }: PetProfileProps) => {
           </Link>
         </Box>
       </Box>
-      <Box display="grid" gridTemplateColumns="1fr 1fr" gap={3}>
+      <Box
+        display="grid"
+        gridTemplateColumns="1fr 1fr"
+        columnGap={3}
+        rowGap={5}
+      >
         <Stat icon={<IoMaleFemaleOutline />} title="Sex" value={data.sex} />
         <Stat
           icon={<IoCalendarOutline />}
@@ -64,12 +69,6 @@ const PetProfile = ({ petId }: PetProfileProps) => {
         title={`Track ${data.name}'s weight`}
         text="This helps you and your vet recognize sickness earlier and track
                 recovery over time."
-      />
-      <CallToAction
-        href="#"
-        icon={<IoThermometerOutline />}
-        title={`Track ${data.name}'s symptoms`}
-        text="This helps you and your vet recognize new symptoms and track the development of existing ones."
       />
     </Stack>
   );

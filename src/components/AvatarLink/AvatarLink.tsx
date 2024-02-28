@@ -29,7 +29,7 @@ const AvatarLink = ({ href, icon, text }: AvatarLinkProps) => {
           border="1px solid"
           icon={icon}
         />
-        <Text fontSize="2xl">{text}</Text>
+        <Text fontSize="lg">{text}</Text>
       </Box>
     </Link>
   );
