@@ -21,7 +21,7 @@ const PetMenu = () => {
           data.map((pet) => (
             <AvatarLink key={pet.id} href={`/pets/${pet.id}`} text={pet.name} />
           ))}
-        <AvatarLink href="/pets/new-pet" text="Add a Rat" icon={<IoAdd />} />
+        <AvatarLink href="/pets/new-pet" text="New Pet" icon={<IoAdd />} />
       </Box>
     </PageSection>
   );
